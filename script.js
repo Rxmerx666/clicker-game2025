@@ -1,13 +1,19 @@
-// Загружаем счёт из localStorage, если он есть, иначе начинаем с 0
+// Загружаем счёт из localStorage или начинаем с 0
 let score = parseInt(localStorage.getItem("score")) || 0;
 
-// Обновляем отображение счёта при загрузке страницы
+// Обновляем счёт на странице при загрузке
 document.getElementById("score").innerText = score;
 
 function clickButton() {
     score++;
     document.getElementById("score").innerText = score;
-    
-    // Сохраняем обновлённый счёт в localStorage
-    localStorage.setItem("score", score);
+    localStorage.setItem("score", score); // Сохраняем в localStorage
+    console.log("Сохранённый счёт:", localStorage.getItem("score"));
+}
+
+function resetScore() {
+    score = 0;
+    document.getElementById("score").innerText = score;
+    localStorage.removeItem("score"); // Удаляем сохранённый счёт
+    console.log("Счёт сброшен");
 }
