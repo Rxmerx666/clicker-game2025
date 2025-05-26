@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Кликер</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto :wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Счёт: <span id="score">0</span></h1>
-    <button onclick="clickButton()">Кликни меня!</button>
-    <button onclick="resetScore()">Сбросить счёт</button>
+    <div class="container">
+        <h1>🎮 Кликер</h1>
+        <div class="score-box">
+            <span id="score">0</span> 🧱
+        </div>
+        <button onclick="clickButton()" class="click-button">💥 Кликни меня!</button>
+        <button onclick="resetScore()" class="reset-button">🔄 Сбросить</button>
+    </div>
 
     <script src="script.js"></script>
 </body>
