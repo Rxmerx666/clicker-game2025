@@ -1,7 +1,8 @@
 /* Общие настройки */
 body {
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(to right, #74ebd5, #acb6e5);
+    font-family: 'Creepster', cursive;
+    background-color: #0d0d0d;
+    color: #f2f2f2;
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -12,43 +13,48 @@ body {
 
 .container {
     text-align: center;
-    background-color: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background-color: #1a1a1a;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+    border: 2px solid #ff0000;
     transition: all 0.3s ease;
 }
 
+/* Заголовок */
 h1 {
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 48px;
+    color: #ff0000;
+    text-shadow: 0 0 10px #ff0000;
+    margin-bottom: 30px;
 }
 
+/* Счётчик */
 .score-box {
-    font-size: 48px;
-    font-weight: bold;
-    color: #4a4a4a;
-    margin: 20px 0;
+    font-size: 100px;
+    color: #ffffff;
+    margin: 30px 0;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
     transition: transform 0.2s ease;
 }
 
 /* Кнопка клика */
 .click-button {
-    padding: 20px 40px;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    padding: 25px 60px;
+    font-size: 30px;
+    font-family: 'Creepster', cursive;
+    color: #fff;
+    background: linear-gradient(145deg, #440000, #880000);
     border: none;
-    border-radius: 50px;
+    border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
     transition: all 0.3s ease;
 }
 
 .click-button:hover {
     transform: scale(1.05);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 24px rgba(255, 0, 0, 0.9);
 }
 
 .click-button:active {
@@ -58,17 +64,18 @@ h1 {
 /* Кнопка сброса */
 .reset-button {
     margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #2575fc;
+    padding: 10px 25px;
+    font-size: 20px;
+    font-family: 'Creepster', cursive;
+    color: #ff0000;
     background: transparent;
-    border: 2px solid #2575fc;
-    border-radius: 30px;
+    border: 2px solid #ff0000;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .reset-button:hover {
-    background-color: #2575fc;
+    background-color: #ff0000;
     color: white;
 }
