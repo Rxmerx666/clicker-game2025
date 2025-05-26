@@ -7,7 +7,7 @@ function clickButton() {
     document.getElementById("score").innerText = score;
     localStorage.setItem("score", score);
 
-    // Анимация прироста
+    // Анимация увеличения счёта
     const scoreBox = document.querySelector(".score-box");
     scoreBox.style.transform = "scale(1.2)";
     setTimeout(() => {
@@ -16,7 +16,7 @@ function clickButton() {
 }
 
 function resetScore() {
-    if (confirm("Сбросить счёт?")) {
+    if (confirm("Сбросить счёт? Это удалит все данные!")) {
         score = 0;
         document.getElementById("score").innerText = score;
         localStorage.removeItem("score");
