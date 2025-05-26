@@ -1,46 +1,57 @@
+/* Основной стиль */
+body {
+    font-family: 'Creepster', cursive; /* Основной шрифт для всего */
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+/* Кнопка клика */
 .click-button {
     display: inline-block;
-    padding: 20px 40px;
-    font-size: 24px;
+    padding: 14px 30px;
+    font-size: 18px;
     font-weight: normal;
     color: white;
     background-color: #333;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
-    font-family: 'Creepster', cursive;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    font-family: 'Creepster', cursive; /* 🎯 Применяем тот же шрифт */
 }
 
 .click-button:hover {
     background-color: #555;
+    transform: scale(1.03);
 }
 
+.click-button:active {
+    transform: scale(0.98);
+}
+
+/* Кнопка сброса */
 .reset-button {
-    margin-top: 20px;
+    margin-top: 15px;
     display: inline-block;
-    padding: 15px 30px;
-    font-size: 20px;
+    padding: 10px 25px;
+    font-size: 16px;
     font-weight: normal;
     color: #333;
     background-color: transparent;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
-    font-family: 'Creepster', cursive;
     transition: all 0.2s ease;
+    font-family: 'Creepster', cursive; /* 🎯 Применяем тот же шрифт */
 }
 
 .reset-button:hover {
     background-color: #eee;
-}
-
-/* Отключение выделения */
-.click-button:focus,
-.reset-button:focus,
-.click-button:active,
-.reset-button:active {
-    outline: none;
-    box-shadow: none;
-    transform: none;
 }
