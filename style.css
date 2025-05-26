@@ -1,16 +1,57 @@
-@font-face {
-    font-family: 'Creepster';
-    src: url('creepster.ttf') format('truetype');
-}
-
+/* Основной стиль */
 body {
-    font-family: 'Creepster', cursive;
-    background-color: #0d0d0d;
-    color: #f2f2f2;
+    font-family: 'Creepster', cursive; /* Основной шрифт для всего */
     margin: 0;
     padding: 0;
-    min-height: 100vh;
+    background-color: #f4f4f4;
+    color: #333;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+/* Кнопка клика */
+.click-button {
+    display: inline-block;
+    padding: 14px 30px;
+    font-size: 18px;
+    font-weight: normal;
+    color: white;
+    background-color: #333;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    font-family: 'Creepster', cursive; /* 🎯 Применяем тот же шрифт */
+}
+
+.click-button:hover {
+    background-color: #555;
+    transform: scale(1.03);
+}
+
+.click-button:active {
+    transform: scale(0.98);
+}
+
+/* Кнопка сброса */
+.reset-button {
+    margin-top: 15px;
+    display: inline-block;
+    padding: 10px 25px;
+    font-size: 16px;
+    font-weight: normal;
+    color: #333;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Creepster', cursive; /* 🎯 Применяем тот же шрифт */
+}
+
+.reset-button:hover {
+    background-color: #eee;
 }
