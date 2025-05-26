@@ -1,3 +1,10 @@
+let score = 0;
+
+function clickButton() {
+    score++;
+    document.getElementById("score").innerText = score;
+}
+
 // Загружаем счёт из localStorage, если он есть, иначе начинаем с 0
 let score = parseInt(localStorage.getItem("score")) || 0;
 
