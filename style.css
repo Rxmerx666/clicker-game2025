@@ -3,7 +3,7 @@ body {
     font-family: 'Creepster', cursive;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #fff; /* Белый фон */
     color: #333;
     display: flex;
     justify-content: center;
@@ -17,9 +17,8 @@ body {
     width: 90%;
     padding: 60px 30px;
     background-color: #fff;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
     border-radius: 12px;
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Лёгкая тень */
 }
 
 h1 {
@@ -33,9 +32,9 @@ h1 {
     font-size: 60px;
     margin-bottom: 40px;
     color: #111;
-    transition: transform 0.2s ease;
 }
 
+/* Кнопка клика */
 .click-button {
     display: inline-block;
     padding: 20px 40px;
@@ -47,18 +46,20 @@ h1 {
     border-radius: 8px;
     cursor: pointer;
     font-family: 'Creepster', cursive;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    transition: background-color 0.2s ease;
 }
 
 .click-button:hover {
     background-color: #555;
-    transform: scale(1.03);
 }
 
+/* При нажатии нет анимации */
 .click-button:active {
-    transform: scale(0.98);
+    outline: none;
+    box-shadow: none;
 }
 
+/* Кнопка сброса */
 .reset-button {
     margin-top: 20px;
     display: inline-block;
@@ -75,5 +76,11 @@ h1 {
 }
 
 .reset-button:hover {
-    background-color: #eee;
+    background-color: #f0f0f0;
+}
+
+/* Отключение обводки при фокусе (например, при клике или Tab) */
+.click-button:focus,
+.reset-button:focus {
+    outline: none;
 }
