@@ -1,7 +1,7 @@
 /* Подключаем локальный шрифт */
 @font-face {
     font-family: 'Vinque';
-    src: url('fonts/creepster.ttf') format('truetype');
+    src: url('fonts/vinque.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
