@@ -1,8 +1,8 @@
 /* Подключаем локальный шрифт */
 @font-face {
     font-family: 'Creepster';
-    src: url('fonts/creepster.woff2') format('woff2'),
-         url('fonts/creepster.woff') format('woff');
+    src: url('fonts/creepster.ttf') format('ttf'),
+         url('fonts/creepster.ttf') format('ttf');
     font-weight: normal;
     font-style: normal;
 }
