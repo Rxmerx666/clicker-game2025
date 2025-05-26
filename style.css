@@ -1,3 +1,16 @@
+/* Обнуляем стандартные стили для всех кнопок */
+button,
+button:focus,
+button:active {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+    -webkit-touch-callout: none !important;
+    border: none !important;
+}
+
 /* Подключаем шрифт Creepster */
 body {
     font-family: 'Creepster', cursive;
@@ -11,7 +24,7 @@ body {
     min-height: 100vh;
     text-align: center;
 
-    /* 🔒 Запрещаем выделение по всему сайту */
+    /* Запрещаем выделение текста */
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -44,19 +57,43 @@ h1 {
     transition: transform 0.2s ease;
 }
 
-/* Кнопка клика */
-.click-button {
-    display: inline-block;
+/* Контейнер для кнопок */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20%; /* Расстояние между кнопками */
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+/* Общие стили кнопок */
+.click-button,
+.reset-button {
     padding: 14px 30px;
     font-size: 18px;
-    font-weight: normal;
-    color: white;
-    background-color: #333;
-    border: none;
+    font-family: 'Creepster', cursive;
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.1s ease;
-    font-family: 'Creepster', cursive;
+    border: none;
+    outline: none; /* Убираем обводку */
+    box-shadow: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* Убираем подсветку на мобильных */
+    -webkit-touch-callout: none;
+    -webkit-appearance: none;
+    appearance: none;
+    user-select: none;
+    tap-highlight-color: transparent;
+    -ms-touch-select: none;
+    touch-action: manipulation;
+    will-change: transform;
+}
+
+/* Стиль кнопки клика */
+.click-button {
+    color: white;
+    background-color: #333;
+    tab-index: -1; /* Отключаем фокус через Tab */
 }
 
 .click-button:hover {
@@ -68,32 +105,14 @@ h1 {
     transform: scale(0.98);
 }
 
-/* Убираем фокус-обводку */
-.click-button:focus {
-    outline: none;
-}
-
-/* Кнопка сброса */
+/* Стиль кнопки сброса */
 .reset-button {
-    margin-top: 15px;
-    display: inline-block;
-    padding: 10px 25px;
-    font-size: 16px;
-    font-weight: normal;
     color: #333;
     background-color: transparent;
     border: 1px solid #ccc;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: 'Creepster', cursive;
+    tab-index: -1; /* Отключаем фокус через Tab */
 }
 
 .reset-button:hover {
     background-color: #eee;
-}
-
-/* Убираем фокус-обводку */
-.reset-button:focus {
-    outline: none;
 }
