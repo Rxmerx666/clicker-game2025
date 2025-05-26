@@ -1,82 +1,16 @@
-/* Подключаем шрифт (если нужен) */
 @font-face {
     font-family: 'Creepster';
     src: url('creepster.ttf') format('truetype');
 }
 
-/* Общие настройки */
 body {
+    font-family: 'Creepster', cursive;
+    background-color: #0d0d0d;
+    color: #f2f2f2;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    text-align: center;
-}
-
-.container {
-    max-width: 400px;
-    width: 100%;
-    padding: 40px 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    border-radius: 12px;
-    transition: all 0.3s ease;
-}
-
-/* Заголовок */
-h1 {
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: #222;
-}
-
-/* Счётчик */
-.score-box {
-    font-size: 32px;
-    font-weight: 500;
-    margin-bottom: 30px;
-    color: #111;
-}
-
-/* Кнопка клика */
-.click-button {
-    display: inline-block;
-    padding: 12px 30px;
-    font-size: 18px;
-    font-weight: 500;
-    color: white;
-    background-color: #333;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.click-button:hover {
-    background-color: #555;
-}
-
-/* Кнопка сброса */
-.reset-button {
-    margin-top: 15px;
-    display: inline-block;
-    padding: 10px 25px;
-    font-size: 16px;
-    font-weight: 500;
-    color: #333;
-    background-color: transparent;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.reset-button:hover {
-    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
