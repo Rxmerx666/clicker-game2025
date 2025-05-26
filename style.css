@@ -1,6 +1,6 @@
-/* Основной стиль */
+/* Используем шрифт с Google Fonts */
 body {
-    font-family: 'Creepster', cursive; /* Основной шрифт для всего */
+    font-family: 'Creepster', cursive;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
@@ -12,19 +12,42 @@ body {
     text-align: center;
 }
 
-/* Кнопка клика */
+.container {
+    max-width: 500px;
+    width: 90%;
+    padding: 60px 30px;
+    background-color: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: normal;
+    margin-bottom: 30px;
+    color: #222;
+}
+
+.score-box {
+    font-size: 60px;
+    margin-bottom: 40px;
+    color: #111;
+    transition: transform 0.2s ease;
+}
+
 .click-button {
     display: inline-block;
-    padding: 14px 30px;
-    font-size: 18px;
+    padding: 20px 40px;
+    font-size: 24px;
     font-weight: normal;
     color: white;
     background-color: #333;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
+    font-family: 'Creepster', cursive;
     transition: background-color 0.2s ease, transform 0.1s ease;
-    font-family: 'Creepster', cursive; /* 🎯 Применяем тот же шрифт */
 }
 
 .click-button:hover {
@@ -36,20 +59,19 @@ body {
     transform: scale(0.98);
 }
 
-/* Кнопка сброса */
 .reset-button {
-    margin-top: 15px;
+    margin-top: 20px;
     display: inline-block;
-    padding: 10px 25px;
-    font-size: 16px;
+    padding: 15px 30px;
+    font-size: 20px;
     font-weight: normal;
     color: #333;
     background-color: transparent;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
+    font-family: 'Creepster', cursive;
     transition: all 0.2s ease;
-    font-family: 'Creepster', cursive; /* 🎯 Применяем тот же шрифт */
 }
 
 .reset-button:hover {
