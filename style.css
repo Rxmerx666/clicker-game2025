@@ -1,6 +1,6 @@
 /* Подключаем локальный шрифт */
 @font-face {
-    font-family: 'Creepster';
+    font-family: 'Creepster-Regular';
     src: url('fonts/creepster.woff2') format('woff2'),
          url('fonts/creepster.woff') format('woff');
     font-weight: normal;
@@ -9,7 +9,7 @@
 
 /* Общие стили */
 body {
-    font-family: 'Creepster', cursive;
+    font-family: 'Creepster-Regular', cursive;
     background-color: #0d0d0d;
     color: #f2f2f2;
     margin: 0;
