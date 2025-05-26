@@ -1,6 +1,6 @@
 /* Подключаем локальный шрифт */
 @font-face {
-    font-family: 'Vinque Rg';
+    font-family: 'Vinque';
     src: url('fonts/creepster.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
@@ -8,7 +8,7 @@
 
 /* Общие настройки */
 body {
-    font-family: 'Vinque Rg', cursive;
+    font-family: 'Vinque', cursive;
     background-color: #0d0d0d;
     color: #f2f2f2;
     margin: 0;
