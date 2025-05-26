@@ -15,7 +15,7 @@ function clickButton() {
 }
 
 function resetScore() {
-    if (confirm("Сбросить счёт? Это удалит все данные!")) {
+    if (confirm("Reset score? This will delete all progress!")) {
         score = 0;
         document.getElementById("score").innerText = score;
         localStorage.removeItem("score");
