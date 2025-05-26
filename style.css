@@ -1,22 +1,14 @@
-/* Обнуляем стандартные стили для всех кнопок */
-button,
-button:focus,
-button:active {
-    outline: none !important;
-    box-shadow: none !important;
-    -webkit-appearance: none !important;
-    appearance: none !important;
-    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
-    -webkit-touch-callout: none !important;
-    border: none !important;
+/* Глобальные стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Подключаем шрифт Creepster */
 body {
     font-family: 'Creepster', cursive;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+    background-color: #fff; /* Чисто белый фон */
     color: #333;
     display: flex;
     justify-content: center;
@@ -33,16 +25,18 @@ body {
     cursor: default;
 }
 
+/* Контейнер для контента */
 .container {
     max-width: 400px;
     width: 90%;
     padding: 40px 20px;
-    background-color: #fff;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    background-color: #fff; /* Белый фон внутри */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05); /* Легкая тень */
     border-radius: 12px;
     transition: all 0.3s ease;
 }
 
+/* Заголовок */
 h1 {
     font-size: 28px;
     font-weight: normal;
@@ -50,6 +44,7 @@ h1 {
     color: #222;
 }
 
+/* Счётчик */
 .score-box {
     font-size: 36px;
     margin-bottom: 30px;
@@ -66,6 +61,21 @@ h1 {
     margin-top: 30px;
 }
 
+/* Общие стили для всех кнопок */
+button,
+button:focus,
+button:active {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+    -webkit-touch-callout: none !important;
+    border: none !important;
+    user-select: none;
+    tap-highlight-color: transparent;
+}
+
 /* Общие стили кнопок */
 .click-button,
 .reset-button {
@@ -76,24 +86,20 @@ h1 {
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.1s ease;
     border: none;
-    outline: none; /* Убираем обводку */
+    outline: none;
     box-shadow: none;
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* Убираем подсветку на мобильных */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-touch-callout: none;
     -webkit-appearance: none;
     appearance: none;
     user-select: none;
-    tap-highlight-color: transparent;
-    -ms-touch-select: none;
-    touch-action: manipulation;
-    will-change: transform;
+    tab-index: -1;
 }
 
 /* Стиль кнопки клика */
 .click-button {
     color: white;
     background-color: #333;
-    tab-index: -1; /* Отключаем фокус через Tab */
 }
 
 .click-button:hover {
@@ -110,7 +116,6 @@ h1 {
     color: #333;
     background-color: transparent;
     border: 1px solid #ccc;
-    tab-index: -1; /* Отключаем фокус через Tab */
 }
 
 .reset-button:hover {
