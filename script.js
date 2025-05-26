@@ -7,7 +7,6 @@ function clickButton() {
     document.getElementById("score").innerText = score;
     localStorage.setItem("score", score);
 
-    // Анимация увеличения счёта
     const scoreBox = document.querySelector(".score-box");
     scoreBox.style.transform = "scale(1.2)";
     setTimeout(() => {
