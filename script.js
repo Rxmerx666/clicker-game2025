@@ -8,7 +8,7 @@ function clickButton() {
     localStorage.setItem("score", score);
 
     const scoreBox = document.querySelector(".score-box");
-    scoreBox.style.transform = "scale(1.2)";
+    scoreBox.style.transform = "scale(1.1)";
     setTimeout(() => {
         scoreBox.style.transform = "scale(1)";
     }, 100);
