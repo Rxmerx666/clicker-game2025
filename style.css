@@ -5,12 +5,14 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    align-items: start; /* Теперь сверху, а не по центру */
     text-align: center;
-
+    flex-direction: column;
+    padding: 40px 20px;
+    box-sizing: border-box;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -21,12 +23,13 @@ body {
 
 .container {
     max-width: 400px;
-    width: 90%;
-    padding: 40px 20px;
+    width: 100%;
+    padding: 25px 20px;
     background-color: #fff;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
     border-radius: 12px;
     transition: all 0.3s ease;
+    margin: 0 auto;
 }
 
 h1 {
@@ -81,7 +84,7 @@ h1 {
     -webkit-touch-callout: none;
     -webkit-appearance: none;
     appearance: none;
-    margin: 10px;
+    width: 100%;
 }
 
 .click-button {
@@ -91,7 +94,7 @@ h1 {
 
 .click-button:hover {
     background-color: #555;
-    transform: scale(1.03);
+    transform: scale(1.02);
 }
 
 .click-button:active {
@@ -108,18 +111,18 @@ h1 {
     background-color: #eee;
 }
 
-/* === История действий (по умолчанию скрыта) === */
-.history-toggle-button {
-    margin-top: 10px;
-}
-
 /* === Группа кнопок === */
 .button-wrapper {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-top: 20px;
     width: 100%;
+    margin-top: 20px;
+}
+
+/* === Кнопка для истории === */
+.history-toggle-button {
+    margin-top: 10px;
 }
 
 /* === История действий (по умолчанию скрыта) === */
