@@ -161,3 +161,23 @@ function resetScore() {
         renderHistory();
     }
 }
+
+// === Переключатель видимости истории ===
+function toggleHistory() {
+    const historyBox = document.getElementById("history-box");
+    const toggleBtn = document.getElementById("history-toggle-btn");
+
+    const isVisible = historyBox.classList.contains("visible");
+
+    if (isVisible) {
+        historyBox.classList.remove("visible");
+        toggleBtn.innerText = "📜 Show History";
+    } else {
+        historyBox.classList.add("visible");
+        toggleBtn.innerText = "❌ Hide History";
+
+        // Прокрутка к концу при открытии
+        const historyList = document.getElementById("history-list");
+        historyList.scrollTop = historyList.scrollHeight;
+    }
+}
