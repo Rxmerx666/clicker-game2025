@@ -150,6 +150,37 @@ h1 {
     }
 }
 
+/* === История действий (по умолчанию скрыта) */
+#history-box {
+    margin-top: 20px;
+    text-align: left;
+    max-width: 100%;
+    width: 100%;
+    background-color: #1e1e2f; /* Темный фон */
+    border-radius: 10px;
+    padding: 15px 20px;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    color: #ffffffcc;
+    font-family: 'Creepster', cursive;
+    display: none;
+    animation: slideDown 0.3s ease forwards;
+    box-sizing: border-box;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 300px;
+    }
+}
+
 #history-box.visible {
     display: block;
 }
@@ -157,7 +188,7 @@ h1 {
 #history-box h2 {
     margin-top: 0;
     font-size: 20px;
-    color: #222;
+    color: #f7931a; /* Оранжевый цвет заголовка */
     margin-bottom: 10px;
     letter-spacing: 1px;
     font-family: 'Creepster', cursive;
@@ -170,36 +201,36 @@ h1 {
     max-height: 200px;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: #ccc #f1f1f1;
+    scrollbar-color: #f7931a #2c2c3d;
     font-family: 'Creepster', cursive;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
 #history-list::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 
 #history-list::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #2c2c3d;
     border-radius: 8px;
 }
 
 #history-list::-webkit-scrollbar-thumb {
-    background: #ccc;
+    background: #f7931a;
     border-radius: 8px;
-    border: 2px solid #f1f1f1;
+    border: 2px solid #2c2c3d;
     transition: background 0.3s ease;
 }
 
 #history-list::-webkit-scrollbar-thumb:hover {
-    background: #bbb;
+    background: #ffae00;
 }
 
 #history-list li {
     padding: 6px 10px;
     font-size: 14px;
-    color: #555;
+    color: #ffffffaa;
     transition: background 0.2s ease;
     border-radius: 6px;
     font-family: 'Creepster', cursive;
