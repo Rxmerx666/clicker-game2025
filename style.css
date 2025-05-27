@@ -3,16 +3,17 @@ body {
     font-family: 'Creepster', cursive;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #ffffff; /* Белый фон */
     color: #333;
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: start; /* Теперь сверху, а не по центру */
+    align-items: start;
     text-align: center;
     flex-direction: column;
     padding: 40px 20px;
     box-sizing: border-box;
+
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -21,15 +22,12 @@ body {
     cursor: default;
 }
 
+/* Удаляем стиль контейнера */
 .container {
-    max-width: 400px;
     width: 100%;
-    padding: 25px 20px;
-    background-color: #fff;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    margin: 0 auto;
+    max-width: 400px;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -39,6 +37,7 @@ h1 {
     color: #222;
 }
 
+/* Счёт и уровень — оставляем стили как есть */
 .score-box,
 .level-box {
     font-size: 36px;
@@ -68,7 +67,7 @@ h1 {
     transition: width 0.3s ease;
 }
 
-/* === Кнопки === */
+/* Кнопки остаются теми же */
 .click-button,
 .reset-button {
     padding: 14px 30px;
@@ -111,7 +110,7 @@ h1 {
     background-color: #eee;
 }
 
-/* === Группа кнопок === */
+/* Группа кнопок */
 .button-wrapper {
     display: flex;
     flex-direction: column;
@@ -120,23 +119,18 @@ h1 {
     margin-top: 20px;
 }
 
-/* === Кнопка для истории === */
-.history-toggle-button {
-    margin-top: 10px;
-}
-
-/* === История действий (по умолчанию скрыта) === */
+/* История действий (по умолчанию скрыта) */
 #history-box {
     margin-top: 20px;
     text-align: left;
     max-width: 100%;
     width: 100%;
-    background-color: #1e1e2f;
+    background-color: #f9f9f9; /* Светлый фон истории */
     border-radius: 10px;
     padding: 15px 20px;
     font-size: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    color: #ffffffcc;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    color: #333;
     font-family: 'Creepster', cursive;
     display: none;
     animation: slideDown 0.3s ease forwards;
@@ -163,7 +157,7 @@ h1 {
 #history-box h2 {
     margin-top: 0;
     font-size: 20px;
-    color: #f7931a;
+    color: #222;
     margin-bottom: 10px;
     letter-spacing: 1px;
     font-family: 'Creepster', cursive;
@@ -176,36 +170,36 @@ h1 {
     max-height: 200px;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: #f7931a #2c2c3d;
+    scrollbar-color: #ccc #f1f1f1;
     font-family: 'Creepster', cursive;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
 #history-list::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 #history-list::-webkit-scrollbar-track {
-    background: #2c2c3d;
+    background: #f1f1f1;
     border-radius: 8px;
 }
 
 #history-list::-webkit-scrollbar-thumb {
-    background: #f7931a;
+    background: #ccc;
     border-radius: 8px;
-    border: 2px solid #2c2c3d;
+    border: 2px solid #f1f1f1;
     transition: background 0.3s ease;
 }
 
 #history-list::-webkit-scrollbar-thumb:hover {
-    background: #ffae00;
+    background: #bbb;
 }
 
 #history-list li {
     padding: 6px 10px;
     font-size: 14px;
-    color: #ffffffaa;
+    color: #555;
     transition: background 0.2s ease;
     border-radius: 6px;
     font-family: 'Creepster', cursive;
