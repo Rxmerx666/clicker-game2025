@@ -9,34 +9,42 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>🎯 Clicker/Tracker</h1>
+<div class="container">
+    <h1>🎯 Clicker/Tracker</h1>
 
-        <div class="score-box">
-            Score: <span id="score">0</span>
-        </div>
-
-        <div class="level-box">
-            Level: <span id="level">1</span>
-        </div>
-
-        <div class="progress-container">
-            Progress to next level:
-            <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill"></div>
-            </div>
-        </div>
-
-        <button onclick="clickButton()" class="click-button">+0.00000001</button>
-        <button onclick="resetScore()" class="reset-button">Reset</button>
-        <button onclick="toggleAutoClicker()" class="click-button" id="auto-clicker-btn">Enable Auto-Clicker</button>
+    <div class="score-box">
+        Score: <span id="score">0</span>
     </div>
 
-    <div class="history-box">
-    <h2>🧾 History</h2>
-    <ul id="history-list"></ul>
+    <div class="level-box">
+        Level: <span id="level">1</span>
+    </div>
+
+    <div class="progress-container">
+        Progress to next level:
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+    </div>
+
+    <!-- Основные кнопки -->
+    <div class="button-wrapper">
+        <button onclick="clickButton()" class="click-button">+0.00000001</button>
+
+        <!-- Кнопка для открытия истории -->
+        <button onclick="toggleHistory()" class="click-button" id="history-toggle-btn">📜 Show History</button>
+
+        <button onclick="toggleAutoClicker()" class="click-button" id="auto-clicker-btn">Enable Auto-Clicker</button>
+        <button onclick="resetScore()" class="reset-button">Reset</button>
+    </div>
+
+    <!-- Блок с историей (раскрывается внизу) -->
+    <div class="history-box" id="history-box">
+        <h2>🧾 History</h2>
+        <ul id="history-list"></ul>
+    </div>
 </div>
 
-    <script src="script.js" defer></script>
+<script src="script.js" defer></script>
 </body>
 </html>
