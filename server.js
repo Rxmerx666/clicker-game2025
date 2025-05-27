@@ -4,11 +4,11 @@ const path = require('path');
 const app = express();
 
 // Обслуживаем статические файлы из текущей папки
-app.use(express.static(path.join(__dirname, '.')));
+app.use(express.static(path.join(main, '.')));
 
 // Все маршруты возвращают index.html
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(main, 'index.html'));
 });
 
 const PORT = process.env.PORT || 8080;
