@@ -84,7 +84,7 @@ function clickButton() {
     realScore += CLICK_VALUE;
     setRealScore(realScore);
     displayScore(realScore);
-    addToHistory(`+${(CLICK_VALUE / DISPLAY_MULTIPLIER).toFixed(8)} C/T`);
+    addToHistory(`+${(CLICK_VALUE / DISPLAY_MULTIPLIER).toFixed(8)} BTC`);
     checkLevelUp(realScore);
     updateProgress(realScore, level);
 
