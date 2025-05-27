@@ -1,7 +1,7 @@
 // === Настройки ===
-const DISPLAY_MULTIPLIER = 1e8; // 1 BTC = 100 000 000
-const CLICK_VALUE = 1; // +0.00000001 BTC
-const AUTO_CLICK_VALUE = 10; // +0.00000010 BTC/сек
+const DISPLAY_MULTIPLIER = 1e8; // 1 CT = 100 000 000
+const CLICK_VALUE = 1; // +0.00000001 CT
+const AUTO_CLICK_VALUE = 10; // +0.00000010 CT/сек
 const MAX_CLICKS_PER_SECOND = 10;
 
 let autoClickerEnabled = false;
@@ -14,7 +14,6 @@ let level = parseInt(localStorage.getItem("level")) || getLevelByScore(realScore
 let clickHistory = JSON.parse(localStorage.getItem("clickHistory")) || [];
 
 // === Функции отображения счёта и истории ===
-
 function displayScore(realScore) {
     const displayedScore = (realScore / DISPLAY_MULTIPLIER).toFixed(8);
     document.getElementById("score").innerText = displayedScore;
@@ -44,47 +43,84 @@ function addToHistory(text) {
 }
 
 // === Формулы уровня и прогресса ===
-
 function getLevelByScore(realScore) {
     const displayedScore = realScore / DISPLAY_MULTIPLIER;
-    let level = 0;
-    while (1000 * (level + 1) * (level + 2) / 2 <= displayedScore) {
+
+    if (displayedScore < 0.00001) return 1;
+    if (displayedScore < 0.00010) return 2;
+    if (displayedScore < 0.00100) return 3;
+    if (displayedScore < 0.01000) return 4;
+    if (displayedScore < 0.10000) return 5;
+    if (displayedScore < 1.00000) return 6;
+
+    let level = 6;
+    let required = 1.0; // уровень 7 → 1.0
+    while (displayedScore >= required) {
+        required *= 10;
         level++;
     }
-    return level + 1;
+
+    return level;
 }
 
 function updateProgress(realScore, currentLevel) {
     const displayedScore = realScore / DISPLAY_MULTIPLIER;
 
-    const nextLevelStart = 1000 * currentLevel * (currentLevel + 1) / 2;
-    const currentLevelStart = 1000 * (currentLevel - 1) * currentLevel / 2;
+    let nextLevelStart, currentLevelStart;
 
-    const progress = ((displayedScore - currentLevelStart) /
-                     (nextLevelStart - currentLevelStart)) * 100;
+    switch (currentLevel) {
+        case 1:
+            currentLevelStart = 0.00000000;
+            nextLevelStart = 0.00001000;
+            break;
+        case 2:
+            currentLevelStart = 0.00001000;
+            nextLevelStart = 0.00010000;
+            break;
+        case 3:
+            currentLevelStart = 0.00010000;
+            nextLevelStart = 0.00100000;
+            break;
+        case 4:
+            currentLevelStart = 0.00100000;
+            nextLevelStart = 0.01000000;
+            break;
+        case 5:
+            currentLevelStart = 0.01000000;
+            nextLevelStart = 0.10000000;
+            break;
+        case 6:
+            currentLevelStart = 0.10000000;
+            nextLevelStart = 1.00000000;
+            break;
+        default:
+            currentLevelStart = Math.pow(10, currentLevel - 7);
+            nextLevelStart = Math.pow(10, currentLevel - 6);
+            break;
+    }
 
+    const progress = ((displayedScore - currentLevelStart) / (nextLevelStart - currentLevelStart)) * 100;
     const progressBar = document.getElementById("progress-fill");
+
     if (progressBar) {
         progressBar.style.width = Math.min(100, progress) + "%";
     }
 }
 
 // === Инициализация ===
-
 displayScore(realScore);
 document.getElementById("level").innerText = level;
 updateProgress(realScore, level);
 renderHistory();
 
-// === Клик по кнопке "+0.00000001" с ограничением на 10 кликов/сек ===
-
+// === Клик по кнопке "+0.00000001 CT" ===
 function clickButton() {
     if (clickCooldown) return;
 
     realScore += CLICK_VALUE;
     setRealScore(realScore);
     displayScore(realScore);
-    addToHistory(`+${(CLICK_VALUE / DISPLAY_MULTIPLIER).toFixed(8)} C/T`);
+    addToHistory(`+${(CLICK_VALUE / DISPLAY_MULTIPLIER).toFixed(8)} CT`);
     checkLevelUp(realScore);
     updateProgress(realScore, level);
 
@@ -99,7 +135,6 @@ function setRealScore(value) {
 }
 
 // === Проверка повышения уровня ===
-
 function checkLevelUp(realScore) {
     const newLevel = getLevelByScore(realScore);
     if (newLevel > level) {
@@ -119,8 +154,7 @@ function checkLevelUp(realScore) {
     }
 }
 
-// === Автокликер: +0.00000010 BTC в секунду ===
-
+// === Автокликер: +0.00000010 CT в секунду ===
 function toggleAutoClicker() {
     const button = document.getElementById("auto-clicker-btn");
 
@@ -129,7 +163,7 @@ function toggleAutoClicker() {
             realScore += AUTO_CLICK_VALUE;
             setRealScore(realScore);
             displayScore(realScore);
-            addToHistory(`+${(AUTO_CLICK_VALUE / DISPLAY_MULTIPLIER).toFixed(8)} C/T (Auto)`);
+            addToHistory(`+${(AUTO_CLICK_VALUE / DISPLAY_MULTIPLIER).toFixed(8)} CT (Auto)`);
             checkLevelUp(realScore);
             updateProgress(realScore, level);
         }, 1000);
@@ -144,7 +178,6 @@ function toggleAutoClicker() {
 }
 
 // === Сброс ===
-
 function resetScore() {
     if (confirm("Reset score? This will delete all progress!")) {
         realScore = 0;
@@ -176,7 +209,7 @@ function toggleHistory() {
         historyBox.classList.add("visible");
         toggleBtn.innerText = "❌ Hide History";
 
-        // Прокрутка к концу при открытии
+        // Прокрутка к последнему действию
         const historyList = document.getElementById("history-list");
         historyList.scrollTop = historyList.scrollHeight;
     }
