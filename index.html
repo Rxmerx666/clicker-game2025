@@ -9,6 +9,13 @@
 </head>
 <body>
 
+<!-- Фоновое видео -->
+<video autoplay muted loop playsinline id="bg-video">
+    <source src="background.mp4" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+</video>
+
+<!-- Контент игры -->
 <div class="container">
     <h1>🎯 Clicker/Tracker</h1>
 
@@ -30,15 +37,12 @@
     <!-- Основные кнопки -->
     <div class="button-wrapper">
         <button onclick="clickButton()" class="click-button">+0.00000001</button>
-
-        <!-- Кнопка для открытия истории -->
         <button onclick="toggleHistory()" class="click-button" id="history-toggle-btn">📜 Show History</button>
-
         <button onclick="toggleAutoClicker()" class="click-button" id="auto-clicker-btn">Enable Auto-Clicker</button>
         <button onclick="resetScore()" class="reset-button">Reset</button>
     </div>
 
-    <!-- Блок с историей (раскрывается внизу) -->
+    <!-- Блок истории (раскрывается внизу) -->
     <div class="history-box" id="history-box">
         <h2>🧾 History</h2>
         <ul id="history-list"></ul>
