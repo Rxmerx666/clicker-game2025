@@ -1,23 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Minimal Clicker</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Подключаем шрифт Creepster с Google Fonts -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>🎯 Minimal Clicker</title>
     <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap " rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
     <div class="container">
-        <h1>🎯 Clicker</h1>
+        <h1>🎯 Clicker/Tracker</h1>
+
         <div class="score-box">
             Score: <span id="score">0</span>
         </div>
-        <button onclick="clickButton()" class="click-button">+1</button>
+
+        <div class="level-box">
+            Level: <span id="level">1</span>
+        </div>
+
+        <div class="progress-container">
+            Progress to next level:
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <button onclick="clickButton()" class="click-button">+0.00000001</button>
         <button onclick="resetScore()" class="reset-button">Reset</button>
+        <button onclick="toggleAutoClicker()" class="click-button" id="auto-clicker-btn">Enable Auto-Clicker</button>
     </div>
 
-    <script src="script.js"></script>
+    <div class="history-box">
+    <h2>🧾 History</h2>
+    <ul id="history-list"></ul>
+</div>
+
+    <script src="script.js" defer></script>
 </body>
 </html>
