@@ -84,7 +84,7 @@ function clickButton() {
     realScore += CLICK_VALUE;
     setRealScore(realScore);
     displayScore(realScore);
-    addToHistory(`+${(CLICK_VALUE / DISPLAY_MULTIPLIER).toFixed(8)} BTC`);
+    addToHistory(`+${(CLICK_VALUE / DISPLAY_MULTIPLIER).toFixed(8)} C/T`);
     checkLevelUp(realScore);
     updateProgress(realScore, level);
 
@@ -129,7 +129,7 @@ function toggleAutoClicker() {
             realScore += AUTO_CLICK_VALUE;
             setRealScore(realScore);
             displayScore(realScore);
-            addToHistory(`+${(AUTO_CLICK_VALUE / DISPLAY_MULTIPLIER).toFixed(8)} BTC (Auto)`);
+            addToHistory(`+${(AUTO_CLICK_VALUE / DISPLAY_MULTIPLIER).toFixed(8)} C/T (Auto)`);
             checkLevelUp(realScore);
             updateProgress(realScore, level);
         }, 1000);
