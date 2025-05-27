@@ -140,6 +140,7 @@ h1 {
     font-family: 'Creepster', cursive;
     display: none;
     animation: slideDown 0.3s ease forwards;
+    box-sizing: border-box;
 }
 
 @keyframes slideDown {
@@ -177,6 +178,8 @@ h1 {
     scrollbar-width: thin;
     scrollbar-color: #f7931a #2c2c3d;
     font-family: 'Creepster', cursive;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 #history-list::-webkit-scrollbar {
@@ -206,8 +209,6 @@ h1 {
     transition: background 0.2s ease;
     border-radius: 6px;
     font-family: 'Creepster', cursive;
-}
-
-#history-list li:hover {
-    background-color: #3a3a4a;
+    white-space: normal;
+    word-break: break-word;
 }
