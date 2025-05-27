@@ -241,15 +241,13 @@ h1 {
 /* === Видео на фоне === */
 #bg-video {
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
     object-fit: cover;
-    transform: translate(-50%, -50%);
-    z-index: -100;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
+    z-index: -1;
+    filter: blur(5px); /* Интенсивность размытия */
 }
 
 /* Защита от растягивания контента */
