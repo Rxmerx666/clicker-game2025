@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Minimal Clicker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <!-- Подключаем шрифт Creepster с Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap " rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -18,24 +17,6 @@
         <button onclick="clickButton()" class="click-button">+1</button>
         <button onclick="resetScore()" class="reset-button">Reset</button>
     </div>
-
-    <!-- Скрипт для Telegram WebApp -->
-    <script>
-        // Проверяем, доступен ли Telegram WebApp API
-        if (window.Telegram && Telegram.WebApp) {
-            Telegram.WebApp.ready();  // Говорим Telegram, что страница загружена
-            console.log("✅ Telegram WebApp готов!");
-
-            // Получаем данные пользователя (если нужно)
-            const user = Telegram.WebApp.initDataUnsafe?.user;
-            if (user) {
-                console.log("👤 Пользователь Telegram:", user);
-                // Здесь можно отправить ID пользователя на сервер или сохранить в localStorage
-            }
-        } else {
-            console.log("⚠️ Работает не в Telegram WebApp");
-        }
-    </script>
 
     <script src="script.js"></script>
 </body>
