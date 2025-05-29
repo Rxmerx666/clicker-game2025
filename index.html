@@ -40,6 +40,7 @@
         <button onclick="toggleHistory()" class="click-button" id="history-toggle-btn">📜 Show History</button>
         <button onclick="toggleAutoClicker()" class="click-button" id="auto-clicker-btn">Enable Auto-Clicker</button>
         <button onclick="resetScore()" class="reset-button">Reset</button>
+        <button class="action-button" onclick="showInformation()">Information</button>
     </div>
 
     <!-- Блок истории (раскрывается внизу) -->
@@ -49,6 +50,16 @@
     </div>
 </div>
 
+    <script>
+  function showHistory() {
+    alert("Opening history...");
+  }
+
+  function showInformation() {
+    alert("Displaying information...");
+  }
+</script>
+    
 <script src="script.js" defer></script>
 </body>
 </html>
