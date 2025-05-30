@@ -30,7 +30,7 @@ function applyOfflineEarnings() {
 
             addToHistory(`+${formattedEarnings} CT (Offline)`);
 
-            showNotification(`Вы получили ${formattedEarnings} CT за ${formatTime(secondsOffline)} вне игры`);
+            showNotification(`You received ${formattedEarnings} CT in ${formatTime(secondsOffline)} outside the game`);
         }
     }
 
@@ -62,9 +62,9 @@ function showNotification(message) {
 // Формат времени: секунды → "X мин Y сек" или "X ч Y мин"
 function formatTime(seconds) {
     seconds = Math.floor(seconds);
-    if (seconds < 60) return `${seconds} сек`;
-    else if (seconds < 3600) return `${Math.floor(seconds / 60)} мин ${seconds % 60} сек`;
-    else return `${Math.floor(seconds / 3600)} ч ${Math.floor((seconds % 3600) / 60)} мин`;
+    if (seconds < 60) return `${seconds} sec`;
+    else if (seconds < 3600) return `${Math.floor(seconds / 60)} min ${seconds % 60} sec`;
+    else return `${Math.floor(seconds / 3600)} h ${Math.floor((seconds % 3600) / 60)} min`;
 }
 
 // Вызываем при загрузке
