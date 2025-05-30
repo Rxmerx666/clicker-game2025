@@ -271,3 +271,8 @@ function toggleHistory() {
         historyList.scrollTop = historyList.scrollHeight;
     }
 }
+
+// Сохраняем время перед закрытием вкладки
+window.addEventListener('beforeunload', () => {
+    localStorage.setItem("lastVisit", Date.now());
+});
