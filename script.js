@@ -21,20 +21,31 @@ function applyOfflineEarnings() {
     if (!isNaN(lastVisit)) {
         const secondsOffline = Math.floor((now - lastVisit) / 1000);
 
-        // 0.00000001 CT в секунду = 1 единица в секунду
-        const offlineEarnings = secondsOffline * 1;
+        // === Защита от изменения системного времени ===
+        const MAX_OFFLINE_SECONDS = 60 * 60 * 24; // Максимум 24 часа
+        const MIN_OFFLINE_SECONDS = 0;
 
-        if (offlineEarnings > 0) {
-            realScore += offlineEarnings;
-            const formattedEarnings = (offlineEarnings / DISPLAY_MULTIPLIER).toFixed(8);
+        if (secondsOffline < MIN_OFFLINE_SECONDS) {
+            console.warn("Время системы изменено: lastVisit больше текущего времени.");
+            return;
+        }
 
+        if (secondsOffline > MAX_OFFLINE_SECONDS) {
+            console.warn(`Слишком большое время офлайна: ${secondsOffline} секунд`);
+            // Начисляем только за последние 24 часа
+            realScore += MAX_OFFLINE_SECONDS * 1;
+            const formattedEarnings = (MAX_OFFLINE_SECONDS * 1 / DISPLAY_MULTIPLIER).toFixed(8);
+            addToHistory(`+${formattedEarnings} CT (Offline | Лимитировано)`);
+            showNotification(`Вы получили ${formattedEarnings} CT за последние 24 часа вне игры`);
+        } else {
+            realScore += secondsOffline * 1;
+            const formattedEarnings = (secondsOffline / DISPLAY_MULTIPLIER).toFixed(8);
             addToHistory(`+${formattedEarnings} CT (Offline)`);
-
             showNotification(`Вы получили ${formattedEarnings} CT за ${formatTime(secondsOffline)} вне игры`);
         }
     }
 
-    localStorage.setItem("lastVisit", now); // обновляем только при входе
+    localStorage.setItem("lastVisit", now); // обновляем время выхода
     setRealScore(realScore);
 }
 
