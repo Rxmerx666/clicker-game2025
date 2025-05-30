@@ -34,8 +34,9 @@ function applyOfflineEarnings() {
         }
     }
 
-    localStorage.setItem("lastVisit", now); // обновляем текущее время
-    setRealScore(realScore);
+function setRealScore(value) {
+    localStorage.setItem("score", value);
+}
 }
 
 // Всплывающее уведомление
