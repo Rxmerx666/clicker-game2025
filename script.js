@@ -36,12 +36,12 @@ function applyOfflineEarnings() {
             realScore += MAX_OFFLINE_SECONDS * 1;
             const formattedEarnings = (MAX_OFFLINE_SECONDS * 1 / DISPLAY_MULTIPLIER).toFixed(8);
             addToHistory(`+${formattedEarnings} CT (Offline | Лимитировано)`);
-            showNotification(`Вы получили ${formattedEarnings} CT за последние 24 часа вне игры`);
+            showNotification(`You got ${formattedEarnings} C/T out of the game in the last 24 hours`);
         } else {
             realScore += secondsOffline * 1;
             const formattedEarnings = (secondsOffline / DISPLAY_MULTIPLIER).toFixed(8);
-            addToHistory(`+${formattedEarnings} CT (Offline)`);
-            showNotification(`Вы получили ${formattedEarnings} CT за ${formatTime(secondsOffline)} вне игры`);
+            addToHistory(`+${formattedEarnings} C/T (Offline)`);
+            showNotification(`You got ${formattedEarnings} C/T for ${formatTime(secondsOffline)} outside the game`);
         }
     }
 
