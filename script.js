@@ -13,6 +13,29 @@ let realScore = parseInt(localStorage.getItem("score")) || 0;
 let level = parseInt(localStorage.getItem("level")) || getLevelByScore(realScore);
 let clickHistory = JSON.parse(localStorage.getItem("clickHistory")) || [];
 
+// === Фоновая добыча монет при повторном запуске ===
+function applyOfflineEarnings() {
+    const lastVisit = parseInt(localStorage.getItem("lastVisit"));
+    const now = Date.now();
+
+    if (!isNaN(lastVisit)) {
+        const secondsOffline = (now - lastVisit) / 1000;
+        let offlineEarnings = AUTO_CLICK_VALUE * secondsOffline;
+
+        realScore += offlineEarnings;
+        addToHistory(`+${(offlineEarnings / DISPLAY_MULTIPLIER).toFixed(8)} CT (Offline)`);
+
+        console.log(`Вы были офлайн ${secondsOffline.toFixed(0)} сек.`);
+        console.log(`Начислено: ${(offlineEarnings / DISPLAY_MULTIPLIER).toExponential(5)} CT`);
+    }
+
+    localStorage.setItem("lastVisit", now);
+    setRealScore(realScore); // сохраняем обновлённый счёт
+}
+
+// Вызываем при загрузке
+applyOfflineEarnings();
+
 // === Функции отображения счёта и истории ===
 function displayScore(realScore) {
     const displayedScore = (realScore / DISPLAY_MULTIPLIER).toFixed(8);
@@ -132,6 +155,7 @@ function clickButton() {
 
 function setRealScore(value) {
     localStorage.setItem("score", value);
+    localStorage.setItem("lastVisit", Date.now()); // обновляем время
 }
 
 // === Проверка повышения уровня ===
