@@ -19,11 +19,10 @@ function applyOfflineEarnings() {
     const now = Date.now();
 
     if (!isNaN(lastVisit)) {
-        const secondsOffline = (now - lastVisit) / 1000;
+        const secondsOffline = Math.floor((now - lastVisit) / 1000);
 
-        // Фиксируем доход в размере 0.00000001 CT/сек = 1 / DISPLAY_MULTIPLIER
-        const offlineEarningsPerSecond = 1; // это 0.00000001 CT
-        let offlineEarnings = offlineEarningsPerSecond * secondsOffline;
+        // 0.00000001 CT в секунду = 1 единица на каждую секунду
+        const offlineEarnings = secondsOffline * 1;
 
         if (offlineEarnings > 0) {
             realScore += offlineEarnings;
@@ -35,9 +34,8 @@ function applyOfflineEarnings() {
         }
     }
 
-    localStorage.setItem("lastVisit", now);
-    setRealScore(realScore); // сохраняем обновлённый счёт
-}
+    localStorage.setItem("lastVisit", now); // обновляем текущее время
+    setRealScore(realScore);
 }
 
 // Всплывающее уведомление
