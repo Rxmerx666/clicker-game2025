@@ -21,7 +21,7 @@ function applyOfflineEarnings() {
     if (!isNaN(lastVisit)) {
         const secondsOffline = Math.floor((now - lastVisit) / 1000);
 
-        // 0.00000001 CT в секунду = 1 единица на каждую секунду
+        // 0.00000001 CT в секунду = 1 единица в секунду
         const offlineEarnings = secondsOffline * 1;
 
         if (offlineEarnings > 0) {
@@ -30,13 +30,12 @@ function applyOfflineEarnings() {
 
             addToHistory(`+${formattedEarnings} CT (Offline)`);
 
-            showNotification(`You received ${formattedEarnings} CT in ${formatTime(secondsOffline)} outside the game`);
+            showNotification(`Вы получили ${formattedEarnings} CT за ${formatTime(secondsOffline)} вне игры`);
         }
     }
 
-function setRealScore(value) {
-    localStorage.setItem("score", value);
-}
+    localStorage.setItem("lastVisit", now); // обновляем только при входе
+    setRealScore(realScore);
 }
 
 // Всплывающее уведомление
