@@ -45,9 +45,12 @@ function applyOfflineEarnings() {
         }
     }
 
-    localStorage.setItem("lastVisit", now); // обновляем время выхода
+    localStorage.setItem("lastVisit", Date.now()); // обновляем при входе
     setRealScore(realScore);
 }
+
+// Вызываем при загрузке
+applyOfflineEarnings();
 
 // Всплывающее уведомление
 function showNotification(message) {
@@ -76,9 +79,6 @@ function formatTime(seconds) {
     else if (seconds < 3600) return `${Math.floor(seconds / 60)} min ${seconds % 60} sec`;
     else return `${Math.floor(seconds / 3600)} h ${Math.floor((seconds % 3600) / 60)} min`;
 }
-
-// Вызываем при загрузке
-applyOfflineEarnings();
 
 // === Функции отображения счёта и истории ===
 function displayScore(realScore) {
@@ -199,7 +199,7 @@ function clickButton() {
 
 function setRealScore(value) {
     localStorage.setItem("score", value);
-    localStorage.setItem("lastVisit", Date.now()); // обновляем время
+    // ❌ Не обновляем lastVisit при каждом клике!
 }
 
 // === Проверка повышения уровня ===
@@ -277,13 +277,12 @@ function toggleHistory() {
         historyBox.classList.add("visible");
         toggleBtn.innerText = "❌ Hide History";
 
-        // Прокрутка к последнему действию
         const historyList = document.getElementById("history-list");
         historyList.scrollTop = historyList.scrollHeight;
     }
 }
 
-// Сохраняем время перед закрытием вкладки
+// Сохраняем точное время выхода из игры
 window.addEventListener('beforeunload', () => {
     localStorage.setItem("lastVisit", Date.now());
 });
