@@ -20,7 +20,10 @@ function applyOfflineEarnings() {
 
     if (!isNaN(lastVisit)) {
         const secondsOffline = (now - lastVisit) / 1000;
-        let offlineEarnings = AUTO_CLICK_VALUE * secondsOffline;
+
+        // Фиксируем доход в размере 0.00000001 CT/сек = 1 / DISPLAY_MULTIPLIER
+        const offlineEarningsPerSecond = 1; // это 0.00000001 CT
+        let offlineEarnings = offlineEarningsPerSecond * secondsOffline;
 
         if (offlineEarnings > 0) {
             realScore += offlineEarnings;
@@ -34,6 +37,7 @@ function applyOfflineEarnings() {
 
     localStorage.setItem("lastVisit", now);
     setRealScore(realScore); // сохраняем обновлённый счёт
+}
 }
 
 // Всплывающее уведомление
