@@ -303,7 +303,7 @@ html, body {
 }
 
 
-/* === Уведомления о доходе оффлайн === */
+/* === Уведомления о доходе оффлайн=== */
 .notification {
     position: fixed;
     bottom: 20px;
@@ -314,7 +314,7 @@ html, body {
     padding: 12px 24px;
     border-radius: 8px;
     font-size: 16px;
-    font-family: 'Creepster', cursive;
+    font-family: 'Creepster', cursive; /* ← Здесь меняем на Creepster */
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
     z-index: 1000;
