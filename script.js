@@ -22,15 +22,46 @@ function applyOfflineEarnings() {
         const secondsOffline = (now - lastVisit) / 1000;
         let offlineEarnings = AUTO_CLICK_VALUE * secondsOffline;
 
-        realScore += offlineEarnings;
-        addToHistory(`+${(offlineEarnings / DISPLAY_MULTIPLIER).toFixed(8)} CT (Offline)`);
+        if (offlineEarnings > 0) {
+            realScore += offlineEarnings;
+            const formattedEarnings = (offlineEarnings / DISPLAY_MULTIPLIER).toFixed(8);
 
-        console.log(`Вы были офлайн ${secondsOffline.toFixed(0)} сек.`);
-        console.log(`Начислено: ${(offlineEarnings / DISPLAY_MULTIPLIER).toExponential(5)} CT`);
+            addToHistory(`+${formattedEarnings} CT (Offline)`);
+
+            showNotification(`Вы получили ${formattedEarnings} CT за ${formatTime(secondsOffline)} вне игры`);
+        }
     }
 
     localStorage.setItem("lastVisit", now);
     setRealScore(realScore); // сохраняем обновлённый счёт
+}
+
+// Всплывающее уведомление
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.innerText = message;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
+
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 4000);
+}
+
+// Формат времени: секунды → "X мин Y сек" или "X ч Y мин"
+function formatTime(seconds) {
+    seconds = Math.floor(seconds);
+    if (seconds < 60) return `${seconds} сек`;
+    else if (seconds < 3600) return `${Math.floor(seconds / 60)} мин ${seconds % 60} сек`;
+    else return `${Math.floor(seconds / 3600)} ч ${Math.floor((seconds % 3600) / 60)} мин`;
 }
 
 // Вызываем при загрузке
