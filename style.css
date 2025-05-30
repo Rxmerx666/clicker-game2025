@@ -273,3 +273,31 @@ html, body {
 .action-button:hover {
   background-color: #324091; /* затемнённый цвет при наведении */
 }
+
+.information-button {
+    padding: 14px 30px;
+    font-size: 18px;
+    font-family: 'Creepster', cursive;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    color: white;
+    background-color: #333;
+}
+
+.information-button:hover {
+    background-color: #555;
+    transform: scale(1.02);
+}
+
+.information-button:active {
+    transform: scale(0.98);
+}
