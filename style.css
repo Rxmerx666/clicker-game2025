@@ -1,330 +1,126 @@
-/* === Основной шрифт === */
-body {
-    font-family: 'Creepster', cursive;
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff; /* Белый фон */
-    color: #333;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    text-align: center;
-    flex-direction: column;
-    padding: 40px 20px;
-    box-sizing: border-box;
-
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    touch-action: manipulation;
-    cursor: default;
-}
-
-/* Удаляем стиль контейнера */
-.container {
-    width: 100%;
-    max-width: 400px;
-    padding: 0 20px;
-    box-sizing: border-box;
-}
-
-h1 {
-    font-size: 28px;
-    font-weight: normal;
-    margin-bottom: 20px;
-    color: #222;
-}
-
-/* Счёт и уровень — оставляем стили как есть */
-.score-box,
-.level-box {
-    font-size: 36px;
-    margin-bottom: 20px;
-    color: #111;
-    transition: transform 0.2s ease;
-}
-
-.progress-container {
-    font-size: 14px;
-    margin-top: 10px;
-    color: #888;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 8px;
-    background-color: #ddd;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-top: 5px;
-}
-
-.progress-fill {
-    height: 100%;
-    background-color: #333;
-    transition: width 0.3s ease;
-}
-
-/* Кнопки остаются теми же */
-.click-button,
-.reset-button {
-    padding: 14px 30px;
-    font-size: 18px;
-    font-family: 'Creepster', cursive;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    border: none;
-    outline: none;
-    box-shadow: none;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -webkit-touch-callout: none;
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-}
-
-.click-button {
-    color: white;
-    background-color: #333;
-}
-
-.click-button:hover {
-    background-color: #555;
-    transform: scale(1.02);
-}
-
-.click-button:active {
-    transform: scale(0.98);
-}
-
-.reset-button {
-    color: #333;
-    background-color: transparent;
-    border: 1px solid #ccc;
-}
-
-.reset-button:hover {
-    background-color: #eee;
-}
-
-/* Группа кнопок */
-.button-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    margin-top: 20px;
-}
-
-/* История действий (по умолчанию скрыта) */
-#history-box {
-    margin-top: 20px;
-    text-align: left;
-    max-width: 100%;
-    width: 100%;
-    background-color: #f9f9f9; /* Светлый фон истории */
+.referral-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #2c2c3d;
     border-radius: 10px;
-    padding: 15px 20px;
-    font-size: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    color: #333;
-    font-family: 'Creepster', cursive;
-    display: none;
-    animation: slideDown 0.3s ease forwards;
-    box-sizing: border-box;
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-        max-height: 0;
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-        max-height: 300px;
-    }
-}
-
-/* === История действий (по умолчанию скрыта) */
-#history-box {
-    margin-top: 20px;
-    text-align: left;
-    max-width: 100%;
-    width: 100%;
-    background-color: #1e1e2f; /* Темный фон */
-    border-radius: 10px;
-    padding: 15px 20px;
-    font-size: 16px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     color: #ffffffcc;
     font-family: 'Creepster', cursive;
-    display: none;
-    animation: slideDown 0.3s ease forwards;
-    box-sizing: border-box;
 }
 
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-        max-height: 0;
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-        max-height: 300px;
-    }
+.referral-section h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #f7931a;
 }
 
-#history-box.visible {
-    display: block;
-}
-
-#history-box h2 {
-    margin-top: 0;
-    font-size: 20px;
-    color: #f7931a; /* Оранжевый цвет заголовка */
+.referral-section p {
+    font-size: 16px;
     margin-bottom: 10px;
-    letter-spacing: 1px;
-    font-family: 'Creepster', cursive;
+    color: #ffffffaa;
 }
 
-#history-list {
+#referral-code {
+    font-weight: bold;
+    color: #fff;
+}
+
+.referral-section .click-button.small {
+    padding: 8px 16px;
+    font-size: 14px;
+    width: auto;
+    margin-bottom: 20px;
+}
+
+.referred-list {
+    margin-top: 10px;
+}
+
+.referred-list h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+#referral-list {
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 200px;
+    max-height: 150px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #f7931a #2c2c3d;
-    font-family: 'Creepster', cursive;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
 }
 
-#history-list::-webkit-scrollbar {
-    width: 8px;
+#referral-list::-webkit-scrollbar {
+    width: 6px;
 }
 
-#history-list::-webkit-scrollbar-track {
+#referral-list::-webkit-scrollbar-track {
     background: #2c2c3d;
-    border-radius: 8px;
+    border-radius: 6px;
 }
 
-#history-list::-webkit-scrollbar-thumb {
+#referral-list::-webkit-scrollbar-thumb {
     background: #f7931a;
-    border-radius: 8px;
-    border: 2px solid #2c2c3d;
-    transition: background 0.3s ease;
+    border-radius: 6px;
 }
 
-#history-list::-webkit-scrollbar-thumb:hover {
-    background: #ffae00;
-}
-
-#history-list li {
+#referral-list li {
     padding: 6px 10px;
     font-size: 14px;
     color: #ffffffaa;
-    transition: background 0.2s ease;
-    border-radius: 6px;
-    font-family: 'Creepster', cursive;
-    white-space: normal;
-    word-break: break-word;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
 }
 
-/* === Видео на фоне === */
-#bg-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: -1;
-    filter: blur(5px); /* Интенсивность размытия */
+#referral-list li:hover {
+    background-color: #3a3a4d;
+}
+```
+
+---
+
+## 🧩 Где использовать?
+
+Просто добавь этот CSS в конец своего файла `style.css`, и интерфейс реферальной системы будет красиво выглядеть и соответствовать дизайну твоего кликера.
+
+---
+
+## ✅ Состояние интеграции на данный момент:
+
+| Часть | Интеграция |
+|-------|------------|
+| ✅ JavaScript | Реферальная логика добавлена |
+| ✅ HTML         | Добавлены элементы интерфейса |
+| ✅ CSS          | Добавлены стили для реферальной системы |
+| 🚧 JS (дополнительно) | Нужно обновить `renderReferrals()` и вызвать при загрузке |
+
+---
+
+## 🔁 Добавь в `script.js` функцию рендера рефералов:
+
+Вставь это в конец `script.js`:
+
+```js
+function renderReferrals() {
+    const referralList = document.getElementById("referral-list");
+    referralList.innerHTML = "";
+
+    if (referredUsers.length === 0) {
+        const li = document.createElement("li");
+        li.textContent = "No referrals yet.";
+        referralList.appendChild(li);
+        return;
+    }
+
+    referredUsers.forEach((ref, index) => {
+        const li = document.createElement("li");
+        li.textContent = `#${index + 1}: ${ref}`;
+        referralList.appendChild(li);
+    });
 }
 
-/* Защита от растягивания контента */
-html, body {
-    overflow-x: hidden;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.action-button {
-  padding: 10px 20px;
-  background-color: #3f51b5; /* основной цвет */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.action-button:hover {
-  background-color: #324091; /* затемнённый цвет при наведении */
-}
-
-.click-button {
-    padding: 14px 30px;
-    font-size: 18px;
-    font-family: 'Creepster', cursive;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    border: none;
-    outline: none;
-    box-shadow: none;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -webkit-touch-callout: none;
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    color: white;
-    background-color: #333;
-}
-
-.click-button:hover {
-    background-color: #555;
-    transform: scale(1.02);
-}
-
-.click-button:active {
-    transform: scale(0.98);
-}
-
-
-/* === Уведомления о доходе оффлайн=== */
-.notification {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: #f7931a;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-family: 'Creepster', cursive; /* ← Здесь меняем на Creepster */
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    z-index: 1000;
-    pointer-events: none;
-    white-space: pre-line;
-    max-width: 80%;
-    text-align: center;
-}
-
-.notification.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
+// Установка реферального кода и рендер рефералов
+document.getElementById("referral-code").innerText = referralCode;
+renderReferrals();
