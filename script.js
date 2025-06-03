@@ -4,6 +4,11 @@ const CLICK_VALUE = 1; // +0.00000001 CT
 const AUTO_CLICK_VALUE = 10; // +0.00000010 CT/сек
 const MAX_CLICKS_PER_SECOND = 10;
 
+// --- Реферальные настройки ---
+const REFERRAL_BONUS = 100 * DISPLAY_MULTIPLIER; // +0.00000100 CT за каждого реферала
+let referralCode = localStorage.getItem("referralCode") || generateReferralCode();
+let referredUsers = JSON.parse(localStorage.getItem("referredUsers")) || [];
+
 let autoClickerEnabled = false;
 let autoClickerInterval = null;
 let clickCooldown = false;
@@ -32,7 +37,6 @@ function applyOfflineEarnings() {
 
         if (secondsOffline > MAX_OFFLINE_SECONDS) {
             console.warn(`Слишком большое время офлайна: ${secondsOffline} секунд`);
-            // Начисляем только за последние 24 часа
             realScore += MAX_OFFLINE_SECONDS * 1;
             const formattedEarnings = (MAX_OFFLINE_SECONDS * 1 / DISPLAY_MULTIPLIER).toFixed(8);
             addToHistory(`+${formattedEarnings} CT (Offline | Лимитировано)`);
@@ -52,7 +56,71 @@ function applyOfflineEarnings() {
 // Вызываем при загрузке
 applyOfflineEarnings();
 
-// Всплывающее уведомление
+// === Реферальная система ===
+
+// Генерация уникального кода
+function generateReferralCode(length = 6) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let code = "";
+    for (let i = 0; i < length; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    localStorage.setItem("referralCode", code);
+    return code;
+}
+
+// Проверка реферала по URL
+function handleIncomingReferral() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get("ref");
+
+    if (ref && ref !== referralCode) {
+        if (!localStorage.getItem("referrer")) {
+            const existingRefs = JSON.parse(localStorage.getItem("referredUsers")) || [];
+
+            if (!existingRefs.includes(ref)) {
+                localStorage.setItem("referrer", ref);
+                alert("Вы зарегистрировались по реферальной ссылке!");
+                console.log(`Пользователь пришёл по ссылке: ${ref}`);
+            }
+        }
+    }
+}
+
+handleIncomingReferral();
+
+// Начисление бонуса за рефералов
+function checkAndRewardReferrals() {
+    const storedReferred = JSON.parse(localStorage.getItem("referredUsers")) || [];
+    const currentReferred = [...storedReferred];
+
+    // Для демонстрации используем симуляцию
+    const simulatedNewReferred = ["ABC123", "XYZ789"];
+
+    simulatedNewReferred.forEach(ref => {
+        if (!currentReferred.includes(ref)) {
+            realScore += REFERRAL_BONUS;
+            setRealScore(realScore);
+            currentReferred.push(ref);
+            addToHistory(`+${(REFERRAL_BONUS / DISPLAY_MULTIPLIER).toFixed(8)} CT (Referral)`);
+            showNotification(`You received a bonus for a new referral!`);
+        }
+    });
+
+    localStorage.setItem("referredUsers", JSON.stringify(currentReferred));
+}
+
+checkAndRewardReferrals();
+
+// Копирование реферальной ссылки
+function copyReferralLink() {
+    const link = `${window.location.origin}${window.location.pathname}?ref=${referralCode}`;
+    navigator.clipboard.writeText(link).then(() => {
+        showNotification("Referral link copied to clipboard!");
+    });
+}
+
+// === Всплывающее уведомление ===
 function showNotification(message) {
     const notification = document.createElement('div');
     notification.className = 'notification';
@@ -281,8 +349,3 @@ function toggleHistory() {
         historyList.scrollTop = historyList.scrollHeight;
     }
 }
-
-// Сохраняем точное время выхода из игры
-window.addEventListener('beforeunload', () => {
-    localStorage.setItem("lastVisit", Date.now());
-});
