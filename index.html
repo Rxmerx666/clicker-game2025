@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>🎯 Minimal Clicker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap " rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -42,6 +42,18 @@
         <button class="click-button" onclick="showInformation()">Information</button>
     </div>
 
+    <!-- Реферальная система -->
+    <div class="referral-section">
+        <h2>🤝 Refer Friends</h2>
+        <p>Your Referral Code: <strong id="referral-code">LOADING</strong></p>
+        <button onclick="copyReferralLink()" class="click-button small">📋 Copy Link</button>
+
+        <div class="referred-list">
+            <h3>👥 Your Referrals:</h3>
+            <ul id="referral-list"></ul>
+        </div>
+    </div>
+
     <!-- Блок истории (раскрывается внизу) -->
     <div class="history-box" id="history-box">
         <h2>🧾 History</h2>
@@ -49,7 +61,7 @@
     </div>
 </div>
 
-    <script>
+<script>
   function showHistory() {
     alert("Opening history...");
   }
@@ -58,7 +70,7 @@
     alert("Displaying information...");
   }
 </script>
-    
+
 <script src="script.js" defer></script>
 </body>
 </html>
