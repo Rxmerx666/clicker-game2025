@@ -347,7 +347,11 @@ function toggleHistory() {
     }
 }
 
-// === Настройки игры ===
+// === Настройки игры "Камень-Ножницы-Бумага" ===
+const GAME_WIN_MULTIPLIER = 1.0; // x1 выигрыш
+const GAME_LOSE_PENALTY_MULTIPLIER = 0.5; // x0.5 проигрыш
+
+// === Функция игры "Камень-Ножницы-Бумага" ===
 function playGame(playerChoice) {
     const input = document.getElementById("betAmount");
     const betValue = parseFloat(input.value);
@@ -375,26 +379,28 @@ function playGame(playerChoice) {
     let resultText = "";
     let change = 0;
 
+    // Обработка результатов
     if (playerChoice === computerChoice) {
-        resultText = `It's a draw! You both chose ${playerChoice}.`;
+        resultText = `It's a draw! 🤝 You both chose ${playerChoice}`;
     } else if (
         (playerChoice === 'rock' && computerChoice === 'scissors') ||
         (playerChoice === 'paper' && computerChoice === 'rock') ||
         (playerChoice === 'scissors' && computerChoice === 'paper')
     ) {
-        change = betInCoins;
+        change = Math.floor(betInCoins * GAME_WIN_MULTIPLIER);
         realScore += change;
-        resultText = `You win! ${playerChoice} beats ${computerChoice}`;
-        addToHistory(`+${betValue.toFixed(8)} CT (Game Win)`);
-        showNotification(`You won +${betValue.toFixed(8)} CT`);
+        addToHistory(`+${(change / DISPLAY_MULTIPLIER).toFixed(8)} CT (Game Win)`);
+        showNotification(`You won +${(change / DISPLAY_MULTIPLIER).toFixed(8)} CT`);
+        resultText = `You win! 🎉 ${playerChoice} beats ${computerChoice}`;
     } else {
-        change = -betInCoins;
+        change = -Math.floor(betInCoins * GAME_LOSE_PENALTY_MULTIPLIER);
         realScore = Math.max(0, realScore + change);
-        resultText = `You lose! ${computerChoice} beats ${playerChoice}`;
-        addToHistory(`-${betValue.toFixed(8)} CT (Game Lose)`);
-        showNotification(`You lost ${betValue.toFixed(8)} CT`);
+        addToHistory(`-${(-change / DISPLAY_MULTIPLIER).toFixed(8)} CT (Game Lose)`);
+        showNotification(`You lost ${(-change / DISPLAY_MULTIPLIER).toFixed(8)} CT`);
+        resultText = `You lose 😞 ${computerChoice} beats ${playerChoice}`;
     }
 
+    // Сохраняем изменения
     setRealScore(realScore);
     displayScore(realScore);
     updateProgress(realScore, level);
