@@ -348,15 +348,32 @@ function toggleHistory() {
 }
 
 // === Настройки игры ===
-const GAME_WIN_REWARD = 10_000_000; // +0.00100000 CT за победу
-const GAME_LOSE_PENALTY = 5_000_000; // -0.00050000 CT за поражение
-
 function playGame(playerChoice) {
+    const input = document.getElementById("betAmount");
+    const betValue = parseFloat(input.value);
+
+    if (isNaN(betValue) || betValue <= 0) {
+        alert("Введите корректную сумму ставки!");
+        return;
+    }
+
+    const betInCoins = Math.floor(betValue * DISPLAY_MULTIPLIER); // Конвертируем в "сырые" монеты
+
+    if (betInCoins < 1) {
+        alert("Минимальная ставка: 0.00000001 CT");
+        return;
+    }
+
+    if (realScore < betInCoins) {
+        alert("Недостаточно средств для ставки!");
+        return;
+    }
+
     const choices = ['rock', 'paper', 'scissors'];
     const computerChoice = choices[Math.floor(Math.random() * choices.length)];
 
     let resultText = "";
-    let reward = 0;
+    let change = 0;
 
     if (playerChoice === computerChoice) {
         resultText = `It's a draw! You both chose ${playerChoice}.`;
@@ -365,19 +382,24 @@ function playGame(playerChoice) {
         (playerChoice === 'paper' && computerChoice === 'rock') ||
         (playerChoice === 'scissors' && computerChoice === 'paper')
     ) {
-        realScore += GAME_WIN_REWARD;
-        setRealScore(realScore);
+        change = betInCoins;
+        realScore += change;
         resultText = `You win! ${playerChoice} beats ${computerChoice}`;
-        addToHistory(`+${(GAME_WIN_REWARD / DISPLAY_MULTIPLIER).toFixed(8)} CT (Game Win)`);
-        showNotification("You won the game and got bonus!");
+        addToHistory(`+${betValue.toFixed(8)} CT (Game Win)`);
+        showNotification(`You won +${betValue.toFixed(8)} CT`);
     } else {
-        realScore = Math.max(0, realScore - GAME_LOSE_PENALTY);
-        setRealScore(realScore);
+        change = -betInCoins;
+        realScore = Math.max(0, realScore + change);
         resultText = `You lose! ${computerChoice} beats ${playerChoice}`;
-        addToHistory(`-${(GAME_LOSE_PENALTY / DISPLAY_MULTIPLIER).toFixed(8)} CT (Game Lose)`);
-        showNotification("You lost some coins in the game.");
+        addToHistory(`-${betValue.toFixed(8)} CT (Game Lose)`);
+        showNotification(`You lost ${betValue.toFixed(8)} CT`);
     }
 
+    setRealScore(realScore);
     displayScore(realScore);
+    updateProgress(realScore, level);
     document.getElementById("game-result").innerText = resultText;
+
+    // Очищаем поле ввода
+    input.value = "";
 }
