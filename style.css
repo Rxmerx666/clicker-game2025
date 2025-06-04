@@ -249,13 +249,32 @@ h1 {
     filter: blur(5px); /* Интенсивность размытия */
 }
 
-/* Защита от растягивания контента */
-html, body {
-    overflow-x: hidden;
-    width: 100%;
-    height: 100%;
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Creepster', cursive;
     margin: 0;
     padding: 0;
+    background-color: #ffffff;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    touch-action: manipulation;
+    cursor: default;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    padding: 40px 20px;
+    box-sizing: border-box;
 }
 
 .action-button {
