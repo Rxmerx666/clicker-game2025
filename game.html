@@ -45,6 +45,20 @@
     <!-- Результат игры -->
     <div id="game-result" style="margin-top: 10px; font-size: 16px;"></div>
 
+    <!-- Фиксированная ставка -->
+<div class="fixed-bet-section">
+    <h3>📌 Fixed Bet</h3>
+    <div style="display: flex; gap: 10px; align-items: center; justify-content: center;">
+        <input type="number" id="fixedBetInput"
+               placeholder="Set fixed bet (min: 0.00000100)"
+               step="0.00000100"
+               min="0.00000100"
+               max="1000"
+               style="padding: 8px; font-size: 16px; width: 70%; border-radius: 4px; border: none; text-align: center;">
+        <button onclick="setFixedBet()" class="click-button small">💾 Save</button>
+    </div>
+</div>
+
     <!-- Кнопка назад -->
     <button onclick="goBack()" class="click-button" style="margin-top: 20px;">⬅️ Back to Clicker</button>
 </div>
