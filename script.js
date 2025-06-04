@@ -26,31 +26,33 @@ function applyOfflineEarnings() {
     if (!isNaN(lastVisit)) {
         const secondsOffline = Math.floor((now - lastVisit) / 1000);
 
-        // === Защита от изменения системного времени ===
-        const MAX_OFFLINE_SECONDS = 60 * 60 * 24; // Максимум 24 часа
+        const MAX_OFFLINE_SECONDS = 60 * 60 * 24;
         const MIN_OFFLINE_SECONDS = 0;
 
         if (secondsOffline < MIN_OFFLINE_SECONDS) {
-            console.warn("Время системы изменено: lastVisit больше текущего времени.");
+            console.warn("Время системы изменено.");
             return;
         }
 
         if (secondsOffline > MAX_OFFLINE_SECONDS) {
-            console.warn(`Слишком большое время офлайна: ${secondsOffline} секунд`);
             realScore += MAX_OFFLINE_SECONDS * 1;
-            const formattedEarnings = (MAX_OFFLINE_SECONDS * 1 / DISPLAY_MULTIPLIER).toFixed(8);
+            const formattedEarnings = (MAX_OFFLINE_SECONDS / DISPLAY_MULTIPLIER).toFixed(8);
             addToHistory(`+${formattedEarnings} CT (Offline | Limit)`);
-            showNotification(`You got ${formattedEarnings} C/T out of the game in the last 24 hours`);
+            showNotification(`You got ${formattedEarnings} C/T in the last 24 hours`);
         } else {
             realScore += secondsOffline * 1;
             const formattedEarnings = (secondsOffline / DISPLAY_MULTIPLIER).toFixed(8);
-            addToHistory(`+${formattedEarnings} C/T (Offline)`);
-            showNotification(`You got ${formattedEarnings} C/T for ${formatTime(secondsOffline)} outside the game`);
+            addToHistory(`+${formattedEarnings} CT (Offline)`);
+            showNotification(`You got ${formattedEarnings} C/T for ${formatTime(secondsOffline)} offline`);
         }
     }
 
-    localStorage.setItem("lastVisit", Date.now()); // обновляем при входе
+    localStorage.setItem("lastVisit", now);
     setRealScore(realScore);
+
+    // === Обновляем интерфейс после начисления оффлайн-монет ===
+    displayScore(realScore);
+    updateProgress(realScore, level);
 }
 
 // Вызываем при загрузке
@@ -239,11 +241,7 @@ function updateProgress(realScore, currentLevel) {
     }
 }
 
-// === Инициализация ===
-displayScore(realScore);
-document.getElementById("level").innerText = level;
-updateProgress(realScore, level);
-renderHistory();
+
 
 // === Клик по кнопке "+0.00000001 CT" ===
 function clickButton() {
