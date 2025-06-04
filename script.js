@@ -94,9 +94,6 @@ function checkAndRewardReferrals() {
     const storedReferred = JSON.parse(localStorage.getItem("referredUsers")) || [];
     const currentReferred = [...storedReferred];
 
-    // Для демонстрации используем симуляцию
-    const simulatedNewReferred = ["ABC123", "XYZ789"];
-
     simulatedNewReferred.forEach(ref => {
         if (!currentReferred.includes(ref)) {
             realScore += REFERRAL_BONUS;
