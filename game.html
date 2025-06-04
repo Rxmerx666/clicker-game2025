@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>🎮 Rock Paper Scissors</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Фоновое видео -->
+<video autoplay muted loop playsinline id="bg-video">
+    <source src="background.mp4" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+</video>
+
+<div class="container game-container">
+    <h1>🎮 Rock Paper Scissors</h1>
+
+    <div class="score-box">
+        Score: <span id="score">0.00000000</span>
+    </div>
+
+    <div class="level-box">
+        Level: <span id="level">1</span>
+    </div>
+
+    <!-- Кнопки выбора хода -->
+    <div class="game-buttons">
+        <button onclick="playGame('rock')" class="click-button">🪨 Rock</button>
+        <button onclick="playGame('scissors')" class="click-button">✂️ Scissors</button>
+        <button onclick="playGame('paper')" class="click-button">📄 Paper</button>
+    </div>
+
+    <!-- Поле ввода ставки -->
+    <div style="margin-top: 15px;">
+        <input type="number" id="betAmount"
+               placeholder="Bet amount (min: 0.00000100)"
+               step="0.00000100"
+               min="0.00000100"
+               max="1000"
+               style="padding: 8px; font-size: 16px; width: 70%; border-radius: 4px; border: none; text-align: center;">
+    </div>
+
+    <!-- Результат игры -->
+    <div id="game-result" style="margin-top: 10px; font-size: 16px;"></div>
+
+    <!-- Кнопка назад -->
+    <button onclick="goBack()" class="click-button" style="margin-top: 20px;">⬅️ Back to Clicker</button>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
