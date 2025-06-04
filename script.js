@@ -346,3 +346,38 @@ function toggleHistory() {
         historyList.scrollTop = historyList.scrollHeight;
     }
 }
+
+// === Настройки игры ===
+const GAME_WIN_REWARD = 10_000_000; // +0.00100000 CT за победу
+const GAME_LOSE_PENALTY = 5_000_000; // -0.00050000 CT за поражение
+
+function playGame(playerChoice) {
+    const choices = ['rock', 'paper', 'scissors'];
+    const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+
+    let resultText = "";
+    let reward = 0;
+
+    if (playerChoice === computerChoice) {
+        resultText = `It's a draw! You both chose ${playerChoice}.`;
+    } else if (
+        (playerChoice === 'rock' && computerChoice === 'scissors') ||
+        (playerChoice === 'paper' && computerChoice === 'rock') ||
+        (playerChoice === 'scissors' && computerChoice === 'paper')
+    ) {
+        realScore += GAME_WIN_REWARD;
+        setRealScore(realScore);
+        resultText = `You win! ${playerChoice} beats ${computerChoice}`;
+        addToHistory(`+${(GAME_WIN_REWARD / DISPLAY_MULTIPLIER).toFixed(8)} CT (Game Win)`);
+        showNotification("You won the game and got bonus!");
+    } else {
+        realScore = Math.max(0, realScore - GAME_LOSE_PENALTY);
+        setRealScore(realScore);
+        resultText = `You lose! ${computerChoice} beats ${playerChoice}`;
+        addToHistory(`-${(GAME_LOSE_PENALTY / DISPLAY_MULTIPLIER).toFixed(8)} CT (Game Lose)`);
+        showNotification("You lost some coins in the game.");
+    }
+
+    displayScore(realScore);
+    document.getElementById("game-result").innerText = resultText;
+}
