@@ -163,3 +163,39 @@ function renderHistory() {
 function goBack() {
     window.location.href = "index.html";
 }
+
+// === Настройки ===
+const DISPLAY_MULTIPLIER = 1e8;
+
+// === Фиксированная ставка ===
+let fixedBet = localStorage.getItem("fixedBet") ? parseFloat(localStorage.getItem("fixedBet")) : null;
+
+function loadFixedBet() {
+    fixedBet = localStorage.getItem("fixedBet") ? parseFloat(localStorage.getItem("fixedBet")) : null;
+    const input = document.getElementById("fixedBetInput");
+    if (input && fixedBet !== null) {
+        input.value = fixedBet.toFixed(8);
+    }
+}
+
+loadFixedBet();
+
+// === Сохранить фиксированную ставку ===
+function setFixedBet() {
+    const input = document.getElementById("fixedBetInput");
+    const value = parseFloat(input.value);
+
+    if (isNaN(value) || value <= 0) {
+        alert("Введите корректное значение ставки!");
+        return;
+    }
+
+    if (value < 0.00000100) {
+        alert("Минимальная ставка: 0.00000100 CT");
+        return;
+    }
+
+    fixedBet = value;
+    localStorage.setItem("fixedBet", fixedBet);
+    showNotification(`Ставка зафиксирована: ${fixedBet.toFixed(8)} CT`);
+}
