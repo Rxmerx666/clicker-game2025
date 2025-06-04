@@ -18,6 +18,40 @@ let realScore = parseInt(localStorage.getItem("score")) || 0;
 let level = parseInt(localStorage.getItem("level")) || getLevelByScore(realScore);
 let clickHistory = JSON.parse(localStorage.getItem("clickHistory")) || [];
 
+function fixBalanceAfterSimulation() {
+    const realScore = parseInt(localStorage.getItem("score")) || 0;
+    const referredUsers = JSON.parse(localStorage.getItem("referredUsers")) || [];
+
+    // Размер награды за одного реферала
+    const BONUS_PER_REFERRAL = 10_000_000;
+
+    // Сколько бонусов было начислено
+    const totalBonus = referredUsers.length * BONUS_PER_REFERRAL;
+
+    if (totalBonus === 0) {
+        console.log("Нет бонусов для удаления.");
+        return;
+    }
+
+    // Убираем бонусы из баланса
+    const newScore = Math.max(0, realScore - totalBonus);
+
+    // Обновляем данные
+    localStorage.setItem("score", newScore);
+    localStorage.removeItem("referredUsers");
+    localStorage.removeItem("referrer");
+
+    // Добавляем запись в историю
+    addToHistory(`-${(totalBonus / DISPLAY_MULTIPLIER).toFixed(8)} CT (Referral Fix)`);
+    showNotification(`Removed referral bonuses: -${(totalBonus / DISPLAY_MULTIPLIER).toFixed(8)} CT`);
+
+    console.log(`Бонусы удалены: ${referredUsers.length} рефералов × 0.00100000 CT`);
+
+    // Перерисовываем интерфейс
+    displayScore(newScore);
+    renderReferrals();
+}
+
 // === Фоновая добыча монет при повторном запуске ===
 function applyOfflineEarnings() {
     const lastVisit = parseInt(localStorage.getItem("lastVisit"));
