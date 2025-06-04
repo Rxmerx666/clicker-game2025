@@ -457,3 +457,14 @@ renderReferrals();
     font-size: 16px;
     color: #ccc;
 }
+
+#betAmount {
+    background-color: #1e1e2f;
+    color: #fff;
+    border: 1px solid #333;
+}
+#betAmount:focus {
+    outline: none;
+    border-color: #f7931a;
+    box-shadow: 0 0 0 2px rgba(247, 147, 26, 0.2);
+}
