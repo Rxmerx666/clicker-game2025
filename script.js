@@ -451,3 +451,8 @@ function playGame(playerChoice) {
 
     input.value = ""; // Очищаем поле ввода
 }
+
+function goToGame() {
+    // Переход на страницу игры
+    window.location.href = "game.html";
+}
