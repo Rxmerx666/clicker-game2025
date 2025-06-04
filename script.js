@@ -386,7 +386,7 @@ function setFixedBet() {
 
     fixedBet = value;
     localStorage.setItem("fixedBet", fixedBet);
-    showNotification(`Ставка зафиксирована: ${fixedBet.toFixed(8)} CT`);
+    showNotification(`FIXED: ${fixedBet.toFixed(8)} CT`);
 }
 
 function playGame(playerChoice) {
