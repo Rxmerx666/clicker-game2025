@@ -75,7 +75,7 @@ function applyOfflineEarnings() {
             console.warn(`Слишком большое время офлайна: ${secondsOffline} секунд`);
             realScore += MAX_OFFLINE_SECONDS * 1;
             const formattedEarnings = (MAX_OFFLINE_SECONDS * 1 / DISPLAY_MULTIPLIER).toFixed(8);
-            addToHistory(`+${formattedEarnings} CT (Offline | Лимитировано)`);
+            addToHistory(`+${formattedEarnings} CT (Offline | Limit)`);
             showNotification(`You got ${formattedEarnings} C/T out of the game in the last 24 hours`);
         } else {
             realScore += secondsOffline * 1;
