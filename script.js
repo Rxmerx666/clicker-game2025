@@ -1,31 +1,3 @@
-// === Одноразовая очистка симуляционных бонусов ===
-(function fixSimulatedReferralBonuses() {
-    const SIMULATED_REFERRALS = ["ABC123", "XYZ789"];
-    const BONUS_PER_REFERRAL = 10_000_000;
-    const storedReferred = JSON.parse(localStorage.getItem("referredUsers")) || [];
-
-    let totalBonusToRemove = 0;
-
-    for (let ref of SIMULATED_REFERRALS) {
-        if (storedReferred.includes(ref)) {
-            totalBonusToRemove += BONUS_PER_REFERRAL;
-        }
-    }
-
-    if (totalBonusToRemove > 0) {
-        let currentScore = parseInt(localStorage.getItem("score")) || 0;
-        let newScore = Math.max(0, currentScore - totalBonusToRemove);
-
-        localStorage.setItem("score", newScore);
-        localStorage.setItem("referralBonusApplied", "true");
-
-        console.log(`Симуляционные бонусы удалены: ${totalBonusToRemove / DISPLAY_MULTIPLIER} CT`);
-        console.log(`Новый баланс: ${newScore / DISPLAY_MULTIPLIER} CT`);
-    } else {
-        console.log("Симуляционные бонусы не найдены");
-    }
-})();
-
 // === Настройки ===
 const DISPLAY_MULTIPLIER = 1e8; // 1 CT = 100 000 000
 const CLICK_VALUE = 1; // +0.00000001 CT
@@ -33,7 +5,7 @@ const AUTO_CLICK_VALUE = 10; // +0.00000010 CT/сек
 const MAX_CLICKS_PER_SECOND = 10;
 
 // --- Реферальные настройки ---
-const REFERRAL_BONUS = 10_000_000; // +0.00100000 CT за каждого реферала
+const REFERRAL_BONUS = 100 * DISPLAY_MULTIPLIER; // +0.00000100 CT за каждого реферала
 let referralCode = localStorage.getItem("referralCode") || generateReferralCode();
 let referredUsers = JSON.parse(localStorage.getItem("referredUsers")) || [];
 
@@ -54,28 +26,30 @@ function applyOfflineEarnings() {
     if (!isNaN(lastVisit)) {
         const secondsOffline = Math.floor((now - lastVisit) / 1000);
 
-        const MAX_OFFLINE_SECONDS = 60 * 60 * 24;
+        // === Защита от изменения системного времени ===
+        const MAX_OFFLINE_SECONDS = 60 * 60 * 24; // Максимум 24 часа
         const MIN_OFFLINE_SECONDS = 0;
 
         if (secondsOffline < MIN_OFFLINE_SECONDS) {
-            console.warn("Время системы изменено.");
+            console.warn("Время системы изменено: lastVisit больше текущего времени.");
             return;
         }
 
         if (secondsOffline > MAX_OFFLINE_SECONDS) {
+            console.warn(`Слишком большое время офлайна: ${secondsOffline} секунд`);
             realScore += MAX_OFFLINE_SECONDS * 1;
-            const formattedEarnings = (MAX_OFFLINE_SECONDS / DISPLAY_MULTIPLIER).toFixed(8);
+            const formattedEarnings = (MAX_OFFLINE_SECONDS * 1 / DISPLAY_MULTIPLIER).toFixed(8);
             addToHistory(`+${formattedEarnings} CT (Offline | Limit)`);
-            showNotification(`You got ${formattedEarnings} C/T in the last 24 hours`);
+            showNotification(`You got ${formattedEarnings} C/T out of the game in the last 24 hours`);
         } else {
             realScore += secondsOffline * 1;
             const formattedEarnings = (secondsOffline / DISPLAY_MULTIPLIER).toFixed(8);
-            addToHistory(`+${formattedEarnings} CT (Offline)`);
-            showNotification(`You got ${formattedEarnings} C/T for ${formatTime(secondsOffline)} offline`);
+            addToHistory(`+${formattedEarnings} C/T (Offline)`);
+            showNotification(`You got ${formattedEarnings} C/T for ${formatTime(secondsOffline)} outside the game`);
         }
     }
 
-    localStorage.setItem("lastVisit", Date.now());
+    localStorage.setItem("lastVisit", Date.now()); // обновляем при входе
     setRealScore(realScore);
 
     displayScore(realScore);
@@ -126,10 +100,8 @@ function checkAndRewardReferrals() {
         realScore += REFERRAL_BONUS;
         setRealScore(realScore);
         currentReferred.push(referrer);
-
         addToHistory(`+${(REFERRAL_BONUS / DISPLAY_MULTIPLIER).toFixed(8)} CT (Referral)`);
         showNotification(`You received a bonus for a new referral!`);
-
         localStorage.setItem("referredUsers", JSON.stringify(currentReferred));
     }
 }
@@ -206,7 +178,7 @@ function addToHistory(text) {
     clickHistory.push(`${timestamp} — ${text}`);
 
     if (clickHistory.length > 50) {
-        clickHistory.shift();
+        clickHistory.shift(); // Ограничиваем до 50 записей
     }
 
     localStorage.setItem("clickHistory", JSON.stringify(clickHistory));
@@ -214,8 +186,9 @@ function addToHistory(text) {
 }
 
 // === Формулы уровня и прогресса ===
-function getLevelByScore(score) {
-    const displayedScore = score / DISPLAY_MULTIPLIER;
+function getLevelByScore(realScore) {
+    const displayedScore = realScore / DISPLAY_MULTIPLIER;
+
     if (displayedScore < 0.00001) return 1;
     if (displayedScore < 0.00010) return 2;
     if (displayedScore < 0.00100) return 3;
@@ -264,8 +237,8 @@ function updateProgress(realScore, currentLevel) {
             nextLevelStart = 1.00000000;
             break;
         default:
-            currentLevelStart = Math.pow(10, currentLevel - 9);
-            nextLevelStart = Math.pow(10, currentLevel - 8);
+            currentLevelStart = Math.pow(10, currentLevel - 7);
+            nextLevelStart = Math.pow(10, currentLevel - 6);
             break;
     }
 
@@ -291,11 +264,12 @@ function clickButton() {
     clickCooldown = true;
     setTimeout(() => {
         clickCooldown = false;
-    }, 100);
+    }, 100); // 100 мс = максимум 10 кликов в секунду
 }
 
 function setRealScore(value) {
     localStorage.setItem("score", value);
+    // ❌ Не обновляем lastVisit при каждом клике!
 }
 
 // === Проверка повышения уровня ===
@@ -382,3 +356,59 @@ function toggleHistory() {
 window.addEventListener('beforeunload', () => {
     localStorage.setItem("lastVisit", Date.now());
 });
+
+// === Игра Камень-Ножницы-Бумага ===
+function playGame(playerChoice) {
+    const input = document.getElementById("betAmount");
+    const betValue = parseFloat(input.value);
+
+    if (isNaN(betValue) || betValue <= 0) {
+        alert("Введите корректную сумму ставки!");
+        return;
+    }
+
+    const betInCoins = Math.floor(betValue * DISPLAY_MULTIPLIER); // Конвертируем в "сырые" монеты
+
+    if (betInCoins < 100) {
+        alert("Минимальная ставка: 0.00000100 CT");
+        return;
+    }
+
+    if (realScore < betInCoins) {
+        alert("Недостаточно средств для ставки!");
+        return;
+    }
+
+    const choices = ['rock', 'paper', 'scissors'];
+    const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+
+    let resultText = "";
+    let change = 0;
+
+    if (playerChoice === computerChoice) {
+        resultText = `It's a draw! 🤝 You both chose ${playerChoice}`;
+    } else if (
+        (playerChoice === 'rock' && computerChoice === 'scissors') ||
+        (playerChoice === 'paper' && computerChoice === 'rock') ||
+        (playerChoice === 'scissors' && computerChoice === 'paper')
+    ) {
+        change = betInCoins;
+        realScore += change;
+        addToHistory(`+${(change / DISPLAY_MULTIPLIER).toFixed(8)} CT (Game Win)`);
+        showNotification(`You won +${(change / DISPLAY_MULTIPLIER).toFixed(8)} CT`);
+        resultText = `You win! 🎉 ${playerChoice} beats ${computerChoice}`;
+    } else {
+        change = -betInCoins;
+        realScore = Math.max(0, realScore + change);
+        addToHistory(`-${(-change / DISPLAY_MULTIPLIER).toFixed(8)} CT (Game Lose)`);
+        showNotification(`You lost ${(-change / DISPLAY_MULTIPLIER).toFixed(8)} CT`);
+        resultText = `You lose 😞 ${computerChoice} beats ${playerChoice}`;
+    }
+
+    setRealScore(realScore);
+    displayScore(realScore);
+    updateProgress(realScore, level);
+    document.getElementById("game-result").innerText = resultText;
+
+    input.value = ""; // Очищаем поле ввода
+}
