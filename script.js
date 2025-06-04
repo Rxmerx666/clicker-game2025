@@ -18,6 +18,42 @@ let realScore = parseInt(localStorage.getItem("score")) || 0;
 let level = parseInt(localStorage.getItem("level")) || getLevelByScore(realScore);
 let clickHistory = JSON.parse(localStorage.getItem("clickHistory")) || [];
 
+// === Сброс реферальных бонусов (выполняется один раз) ===
+function resetReferralBonuses() {
+    const referredUsers = JSON.parse(localStorage.getItem("referredUsers")) || [];
+    const realScore = parseInt(localStorage.getItem("score")) || 0;
+
+    if (localStorage.getItem("referralBonusApplied") === "true") {
+        console.log("Реферальные бонусы уже были сброшены.");
+        return;
+    }
+
+    // Убираем награду за каждого реферала
+    const bonusPerReferral = 10_000_000; // 0.00100000 CT
+    const totalDeduction = referredUsers.length * bonusPerReferral;
+
+    if (totalDeduction > 0) {
+        const newScore = Math.max(0, realScore - totalDeduction);
+        localStorage.setItem("score", newScore);
+
+        addToHistory(`-${(totalDeduction / DISPLAY_MULTIPLIER).toFixed(8)} CT (Referral Reset)`);
+        showNotification(`Your referral bonuses have been removed: -${(totalDeduction / DISPLAY_MULTIPLIER).toFixed(8)} CT`);
+    }
+
+    // Очищаем список рефералов
+    localStorage.removeItem("referredUsers");
+    localStorage.removeItem("referrer");
+    localStorage.removeItem("referralBonusApplied");
+
+    // Флаг, что сброс выполнен
+    localStorage.setItem("referralBonusApplied", "true");
+
+    console.log("Реферальные бонусы успешно удалены.");
+}
+
+// Вызываем функцию сброса при загрузке
+resetReferralBonuses();
+
 // === Фоновая добыча монет при повторном запуске ===
 function applyOfflineEarnings() {
     const lastVisit = parseInt(localStorage.getItem("lastVisit"));
