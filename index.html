@@ -57,11 +57,18 @@
     <!-- Игра Камень-Ножницы-Бумага -->
 <div class="game-section">
     <h2>🎮 Rock Paper Scissors</h2>
+    
     <div class="game-buttons">
         <button onclick="playGame('rock')" class="click-button">🪨 Rock</button>
         <button onclick="playGame('scissors')" class="click-button">✂️ Scissors</button>
         <button onclick="playGame('paper')" class="click-button">📄 Paper</button>
     </div>
+
+    <!-- Поле ввода ставки -->
+    <div style="margin-top: 15px;">
+        <input type="number" id="betAmount" placeholder="Bet amount (min: 0.00000001)" step="0.00000001" min="0.00000001" max="1000" style="padding: 8px; font-size: 16px; width: 70%; border-radius: 4px; border: none; text-align: center;">
+    </div>
+
     <div id="game-result" style="margin-top: 10px; font-size: 18px;"></div>
 </div>
 
