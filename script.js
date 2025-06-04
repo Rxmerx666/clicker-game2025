@@ -18,6 +18,34 @@ let realScore = parseInt(localStorage.getItem("score")) || 0;
 let level = parseInt(localStorage.getItem("level")) || getLevelByScore(realScore);
 let clickHistory = JSON.parse(localStorage.getItem("clickHistory")) || [];
 
+(function fixSimulatedReferralBonuses() {
+    const SIMULATED_REFERRALS = ["ABC123", "XYZ789"];
+    const BONUS_PER_REFERRAL = 10_000_000; // REFERRAL_BONUS
+    const storedReferred = JSON.parse(localStorage.getItem("referredUsers")) || [];
+
+    let totalBonusToRemove = 0;
+
+    // Сколько бонусов нужно убрать
+    for (let ref of SIMULATED_REFERRALS) {
+        if (storedReferred.includes(ref)) {
+            totalBonusToRemove += BONUS_PER_REFERRAL;
+        }
+    }
+
+    if (totalBonusToRemove > 0) {
+        let currentScore = parseInt(localStorage.getItem("score")) || 0;
+        let newScore = Math.max(0, currentScore - totalBonusToRemove);
+
+        localStorage.setItem("score", newScore);
+        localStorage.setItem("referralBonusApplied", "true");
+
+        console.log(`Симуляционные бонусы удалены: ${totalBonusToRemove / DISPLAY_MULTIPLIER} CT`);
+        console.log(`Новый баланс: ${newScore / DISPLAY_MULTIPLIER} CT`);
+    } else {
+        console.log("Симуляционные бонусы не найдены");
+    }
+})();
+
 // === Фоновая добыча монет при повторном запуске ===
 function applyOfflineEarnings() {
     const lastVisit = parseInt(localStorage.getItem("lastVisit"));
