@@ -18,6 +18,19 @@ let realScore = parseInt(localStorage.getItem("score")) || 0;
 let level = parseInt(localStorage.getItem("level")) || getLevelByScore(realScore);
 let clickHistory = JSON.parse(localStorage.getItem("clickHistory")) || [];
 
+// === Фиксированная ставка ===
+let fixedBet = localStorage.getItem("fixedBet") ? parseFloat(localStorage.getItem("fixedBet")) : null;
+
+function loadFixedBet() {
+    fixedBet = localStorage.getItem("fixedBet") ? parseFloat(localStorage.getItem("fixedBet")) : null;
+    const input = document.getElementById("fixedBetInput");
+    if (input && fixedBet !== null) {
+        input.value = fixedBet.toFixed(8);
+    }
+}
+
+loadFixedBet();
+
 // === Фоновая добыча монет при повторном запуске ===
 function applyOfflineEarnings() {
     const lastVisit = parseInt(localStorage.getItem("lastVisit"));
@@ -62,6 +75,7 @@ function applyOfflineEarnings() {
 applyOfflineEarnings();
 
 // === Реферальная система ===
+
 function generateReferralCode(length = 6) {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let code = "";
@@ -274,6 +288,7 @@ function setRealScore(value) {
 
 // === Проверка повышения уровня ===
 function checkLevelUp(realScore) {
+    const displayedScore = realScore / DISPLAY_MULTIPLIER;
     const newLevel = getLevelByScore(realScore);
     if (newLevel > level) {
         level = newLevel;
@@ -323,6 +338,7 @@ function resetScore() {
         setRealScore(realScore);
         localStorage.setItem("level", level);
         localStorage.removeItem("clickHistory");
+        localStorage.removeItem("fixedBet");
 
         displayScore(realScore);
         document.getElementById("level").innerText = level;
@@ -358,16 +374,39 @@ window.addEventListener('beforeunload', () => {
 });
 
 // === Игра Камень-Ножницы-Бумага ===
+
+function setFixedBet() {
+    const input = document.getElementById("fixedBetInput");
+    const value = parseFloat(input.value);
+
+    if (isNaN(value) || value <= 0) {
+        alert("Введите корректную сумму ставки!");
+        return;
+    }
+
+    fixedBet = value;
+    localStorage.setItem("fixedBet", fixedBet);
+    showNotification(`Ставка зафиксирована: ${fixedBet.toFixed(8)} CT`);
+}
+
 function playGame(playerChoice) {
     const input = document.getElementById("betAmount");
-    const betValue = parseFloat(input.value);
+
+    let betValue;
+
+    if (fixedBet !== null && fixedBet > 0) {
+        betValue = fixedBet;
+        input.value = fixedBet.toFixed(8);
+    } else {
+        betValue = parseFloat(input.value);
+    }
 
     if (isNaN(betValue) || betValue <= 0) {
         alert("Введите корректную сумму ставки!");
         return;
     }
 
-    const betInCoins = Math.floor(betValue * DISPLAY_MULTIPLIER); // Конвертируем в "сырые" монеты
+    const betInCoins = Math.floor(betValue * DISPLAY_MULTIPLIER);
 
     if (betInCoins < 100) {
         alert("Минимальная ставка: 0.00000100 CT");
